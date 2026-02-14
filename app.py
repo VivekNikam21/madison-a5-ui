@@ -36,7 +36,7 @@ Streamlit (Cloud UI) → n8n (workflow) → Ollama (local LLM) → HTML report
 
 **Built by**
 Vivek Nikam  
-Portfolio/Contact: *(paste your link here)*
+Portfolio: https://vivek-nikam-portfolio.framer.website/
 """
     )
 
@@ -206,3 +206,4 @@ if run:
             file_name="n8n_response.json",
             mime="application/json",
         )
+
