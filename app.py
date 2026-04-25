@@ -98,9 +98,9 @@ p, label, span, div {
 
 .hero-copy {
     font-size: 1.12rem;
-    line-height: 1.75;
+    line-height: 1.6;
     color: #CBD5E1;
-    max-width: 830px;
+    max-width: 1180px;
 }
 
 .step-card {
@@ -146,15 +146,13 @@ p, label, span, div {
     color: #F8FAFC !important;
 }
 
-/* Evaluate section container */
-.evaluate-shell {
-    background: rgba(15, 23, 42, 0.70);
-    border: 1px solid rgba(56, 189, 248, 0.18);
-    border-radius: 26px;
-    padding: 34px;
-    box-shadow: 0 18px 42px rgba(0,0,0,0.20);
-    margin-top: 3rem;
-    margin-bottom: 3rem;
+/* Style bordered Streamlit container for Evaluate Content */
+[data-testid="stVerticalBlockBorderWrapper"] {
+    background: rgba(15, 23, 42, 0.70) !important;
+    border: 1px solid rgba(56, 189, 248, 0.18) !important;
+    border-radius: 26px !important;
+    box-shadow: 0 18px 42px rgba(0,0,0,0.20) !important;
+    padding: 20px !important;
 }
 
 /* Inputs */
@@ -282,10 +280,7 @@ st.markdown("""
 <div class="hero">
     <div class="hero-kicker">AI-powered brand voice evaluation</div>
     <h1>Turn brand voice review into a clear decision.</h1>
-    <p class="hero-copy">
-        Aligna evaluates copy against a learned brand voice and returns structured
-        PASS, FLAG, or REVIEW outcomes with explanations your team can act on before anything goes live.
-    </p>
+    <p class="hero-copy">Aligna evaluates copy against a learned brand voice and returns structured PASS, FLAG, or REVIEW outcomes with explanations your team can act on before anything goes live.</p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -345,65 +340,62 @@ st.divider()
 # -----------------------------
 # INPUTS
 # -----------------------------
-st.markdown("<div class='evaluate-shell'>", unsafe_allow_html=True)
+with st.container(border=True):
+    st.header("Evaluate Content")
+    st.caption("Brand guideline upload is optional. The tool can still run using built-in brand voice examples.")
 
-st.header("Evaluate Content")
-st.caption("Brand guideline upload is optional. The tool can still run using built-in brand voice examples.")
+    st.markdown("<div style='height:24px'></div>", unsafe_allow_html=True)
 
-st.markdown("<div style='margin-top:1.5rem'></div>", unsafe_allow_html=True)
+    col1, col2 = st.columns([1, 1], gap="large")
 
-col1, col2 = st.columns([1, 1], gap="large")
+    with col1:
+        st.markdown("#### Upload Brand Guidelines")
+        brand_pdf = st.file_uploader(
+            "Optional PDF upload",
+            type=["pdf"],
+            label_visibility="collapsed",
+            help="Optional. Uploading guidelines can support richer future evaluation."
+        )
 
-with col1:
-    st.markdown("#### Upload Brand Guidelines")
-    brand_pdf = st.file_uploader(
-        "Optional PDF upload",
-        type=["pdf"],
+    with col2:
+        st.markdown("#### Copy to Evaluate")
+        copy_text = st.text_area(
+            "Copy to evaluate",
+            height=180,
+            placeholder="Example: Introducing our latest feature to help marketers move faster with confidence...",
+            label_visibility="collapsed",
+            help="Paste copy you want Aligna to evaluate."
+        )
+
+    st.markdown("<div style='height:12px'></div>", unsafe_allow_html=True)
+
+    st.markdown("#### Email")
+    email = st.text_input(
+        "Email",
+        placeholder="name@example.com",
         label_visibility="collapsed",
-        help="Optional. Uploading guidelines can support richer future evaluation."
+        help="Optional. Used only if your workflow supports logging or email delivery."
     )
 
-with col2:
-    st.markdown("#### Copy to Evaluate")
-    copy_text = st.text_area(
-        "Copy to evaluate",
-        height=180,
-        placeholder="Example: Introducing our latest feature to help marketers move faster with confidence...",
-        label_visibility="collapsed",
-        help="Paste copy you want Aligna to evaluate."
-    )
+    errors = []
 
-st.markdown("<div style='margin-top:0.75rem'></div>", unsafe_allow_html=True)
+    if not N8N_WEBHOOK_URL:
+        errors.append(
+            "Missing N8N_WEBHOOK_URL. Add it in Streamlit Cloud → App → Settings → Secrets."
+        )
+    elif not N8N_WEBHOOK_URL.startswith("http"):
+        errors.append("N8N_WEBHOOK_URL must start with http:// or https://")
 
-st.markdown("#### Email")
-email = st.text_input(
-    "Email",
-    placeholder="name@example.com",
-    label_visibility="collapsed",
-    help="Optional. Used only if your workflow supports logging or email delivery."
-)
+    if email and ("@" not in email or "." not in email.split("@")[-1]):
+        errors.append("Email looks invalid. Enter a valid email or leave blank.")
 
-errors = []
+    if errors:
+        for e in errors:
+            st.error(e)
 
-if not N8N_WEBHOOK_URL:
-    errors.append(
-        "Missing N8N_WEBHOOK_URL. Add it in Streamlit Cloud → App → Settings → Secrets."
-    )
-elif not N8N_WEBHOOK_URL.startswith("http"):
-    errors.append("N8N_WEBHOOK_URL must start with http:// or https://")
+    st.markdown("<div style='height:16px'></div>", unsafe_allow_html=True)
 
-if email and ("@" not in email or "." not in email.split("@")[-1]):
-    errors.append("Email looks invalid. Enter a valid email or leave blank.")
-
-if errors:
-    for e in errors:
-        st.error(e)
-
-st.markdown("<div style='margin-top:1rem'></div>", unsafe_allow_html=True)
-
-run = st.button("Run Evaluation", disabled=bool(errors))
-
-st.markdown("</div>", unsafe_allow_html=True)
+    run = st.button("Run Evaluation", disabled=bool(errors))
 
 st.divider()
 
