@@ -38,8 +38,8 @@ html, body, [class*="css"] {
 }
 
 .block-container {
-    padding-top: 1.4rem;
-    max-width: 1180px;
+    padding-top: 1.6rem;
+    max-width: 1450px;
 }
 
 [data-testid="stHeader"] {
@@ -84,7 +84,7 @@ p, label, span, div {
         radial-gradient(circle at 82% 18%, rgba(56, 189, 248, 0.20), transparent 34%);
     border: 1px solid rgba(56, 189, 248, 0.24);
     box-shadow: 0 26px 80px rgba(0,0,0,0.38);
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
 }
 
 .hero-kicker {
@@ -100,7 +100,7 @@ p, label, span, div {
     font-size: 1.12rem;
     line-height: 1.75;
     color: #CBD5E1;
-    max-width: 770px;
+    max-width: 830px;
 }
 
 .step-card {
@@ -125,7 +125,7 @@ p, label, span, div {
     margin-bottom: 12px;
 }
 
-/* Fix Streamlit expander */
+/* Streamlit expander fix */
 [data-testid="stExpander"] {
     background: rgba(15, 23, 42, 0.78) !important;
     border: 1px solid rgba(56, 189, 248, 0.18) !important;
@@ -146,13 +146,15 @@ p, label, span, div {
     color: #F8FAFC !important;
 }
 
-/* Bordered Streamlit container used for Evaluate Content */
-[data-testid="stVerticalBlockBorderWrapper"] {
-    background: rgba(15, 23, 42, 0.78) !important;
-    border: 1px solid rgba(56, 189, 248, 0.22) !important;
-    border-radius: 26px !important;
-    box-shadow: 0 18px 42px rgba(0,0,0,0.20) !important;
-    padding: 10px !important;
+/* Evaluate section container */
+.evaluate-shell {
+    background: rgba(15, 23, 42, 0.70);
+    border: 1px solid rgba(56, 189, 248, 0.18);
+    border-radius: 26px;
+    padding: 34px;
+    box-shadow: 0 18px 42px rgba(0,0,0,0.20);
+    margin-top: 3rem;
+    margin-bottom: 3rem;
 }
 
 /* Inputs */
@@ -167,6 +169,7 @@ p, label, span, div {
     background: rgba(15, 23, 42, 0.86) !important;
     border: 1px dashed rgba(56, 189, 248, 0.35) !important;
     border-radius: 14px !important;
+    padding: 18px !important;
 }
 
 [data-testid="stFileUploader"] button {
@@ -176,9 +179,18 @@ p, label, span, div {
     border-radius: 12px !important;
 }
 
+.stFileUploader, .stTextArea, .stTextInput {
+    margin-bottom: 16px !important;
+}
+
 textarea, input {
     border-radius: 14px !important;
-    border: 1px solid rgba(56, 189, 248, 0.28) !important;
+    border: 1px solid rgba(56, 189, 248, 0.34) !important;
+}
+
+textarea:focus, input:focus {
+    border: 1px solid #38BDF8 !important;
+    box-shadow: 0 0 0 1px rgba(56,189,248,0.35) !important;
 }
 
 .stTextArea textarea, .stTextInput input {
@@ -306,6 +318,8 @@ with step3:
     </div>
     """, unsafe_allow_html=True)
 
+st.markdown("<div style='margin-top:1rem'></div>", unsafe_allow_html=True)
+
 with st.expander("About Aligna", expanded=False):
     st.markdown(
         """
@@ -331,50 +345,65 @@ st.divider()
 # -----------------------------
 # INPUTS
 # -----------------------------
-with st.container(border=True):
-    st.header("Evaluate Content")
-    st.caption("Brand guideline upload is optional. The tool can still run using built-in brand voice examples.")
+st.markdown("<div class='evaluate-shell'>", unsafe_allow_html=True)
 
-    col1, col2 = st.columns(2)
+st.header("Evaluate Content")
+st.caption("Brand guideline upload is optional. The tool can still run using built-in brand voice examples.")
 
-    with col1:
-        brand_pdf = st.file_uploader(
-            "Upload Brand Guidelines PDF — optional",
-            type=["pdf"],
-            help="Optional. Uploading guidelines can support richer future evaluation."
-        )
+st.markdown("<div style='margin-top:1.5rem'></div>", unsafe_allow_html=True)
 
-    with col2:
-        copy_text = st.text_area(
-            "Copy to evaluate — optional for testing",
-            height=170,
-            placeholder="Example: Introducing our latest feature to help marketers move faster with confidence...",
-            help="Paste copy you want Aligna to evaluate."
-        )
+col1, col2 = st.columns([1, 1], gap="large")
 
-    email = st.text_input(
-        "Email — optional",
-        placeholder="name@example.com",
-        help="Optional. Used only if your workflow supports logging or email delivery."
+with col1:
+    st.markdown("#### Upload Brand Guidelines")
+    brand_pdf = st.file_uploader(
+        "Optional PDF upload",
+        type=["pdf"],
+        label_visibility="collapsed",
+        help="Optional. Uploading guidelines can support richer future evaluation."
     )
 
-    errors = []
+with col2:
+    st.markdown("#### Copy to Evaluate")
+    copy_text = st.text_area(
+        "Copy to evaluate",
+        height=180,
+        placeholder="Example: Introducing our latest feature to help marketers move faster with confidence...",
+        label_visibility="collapsed",
+        help="Paste copy you want Aligna to evaluate."
+    )
 
-    if not N8N_WEBHOOK_URL:
-        errors.append(
-            "Missing N8N_WEBHOOK_URL. Add it in Streamlit Cloud → App → Settings → Secrets."
-        )
-    elif not N8N_WEBHOOK_URL.startswith("http"):
-        errors.append("N8N_WEBHOOK_URL must start with http:// or https://")
+st.markdown("<div style='margin-top:0.75rem'></div>", unsafe_allow_html=True)
 
-    if email and ("@" not in email or "." not in email.split("@")[-1]):
-        errors.append("Email looks invalid. Enter a valid email or leave blank.")
+st.markdown("#### Email")
+email = st.text_input(
+    "Email",
+    placeholder="name@example.com",
+    label_visibility="collapsed",
+    help="Optional. Used only if your workflow supports logging or email delivery."
+)
 
-    if errors:
-        for e in errors:
-            st.error(e)
+errors = []
 
-    run = st.button("Run Evaluation", disabled=bool(errors))
+if not N8N_WEBHOOK_URL:
+    errors.append(
+        "Missing N8N_WEBHOOK_URL. Add it in Streamlit Cloud → App → Settings → Secrets."
+    )
+elif not N8N_WEBHOOK_URL.startswith("http"):
+    errors.append("N8N_WEBHOOK_URL must start with http:// or https://")
+
+if email and ("@" not in email or "." not in email.split("@")[-1]):
+    errors.append("Email looks invalid. Enter a valid email or leave blank.")
+
+if errors:
+    for e in errors:
+        st.error(e)
+
+st.markdown("<div style='margin-top:1rem'></div>", unsafe_allow_html=True)
+
+run = st.button("Run Evaluation", disabled=bool(errors))
+
+st.markdown("</div>", unsafe_allow_html=True)
 
 st.divider()
 
