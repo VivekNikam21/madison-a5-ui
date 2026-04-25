@@ -9,88 +9,218 @@ st.set_page_config(
 )
 
 # -----------------------------
-# BRAND STYLING
+# BRAND CSS
 # -----------------------------
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    --midnight: #020617;
+    --navy: #0F172A;
+    --blue: #2563EB;
+    --cyan: #38BDF8;
+    --slate: #94A3B8;
+    --text: #F8FAFC;
+    --muted: #CBD5E1;
+}
 
 html, body, [class*="css"] {
     font-family: 'Inter', sans-serif;
 }
 
 .stApp {
-    background: linear-gradient(180deg, #020617 0%, #0F172A 100%);
-    color: #E5E7EB;
+    background:
+        radial-gradient(circle at top left, rgba(37, 99, 235, 0.18), transparent 32%),
+        radial-gradient(circle at top right, rgba(56, 189, 248, 0.12), transparent 30%),
+        linear-gradient(180deg, #020617 0%, #0F172A 100%);
+    color: var(--text);
 }
 
-h1, h2, h3 {
-    font-family: 'Sora', sans-serif;
-    color: #F8FAFC;
-}
-
-p, label, span, div {
-    color: #CBD5E1;
+.block-container {
+    padding-top: 1.4rem;
+    max-width: 1180px;
 }
 
 [data-testid="stHeader"] {
     background: rgba(2, 6, 23, 0);
 }
 
-[data-testid="stMetric"] {
-    background: rgba(15, 23, 42, 0.92);
+h1, h2, h3 {
+    font-family: 'Sora', sans-serif;
+    color: var(--text);
+    letter-spacing: -0.035em;
+}
+
+h1 {
+    font-size: 3.35rem !important;
+    line-height: 1.05 !important;
+    margin-bottom: 1rem !important;
+}
+
+h2 {
+    font-size: 1.9rem !important;
+}
+
+p, label, span, div {
+    color: var(--muted);
+}
+
+.logo-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.2rem;
+}
+
+.logo-wrap {
+    display: flex;
+    align-items: center;
+}
+
+.logo-wrap img {
+    max-width: 230px;
+    height: auto;
+    filter: drop-shadow(0 0 24px rgba(56, 189, 248, 0.22));
+}
+
+.nav-pill {
+    padding: 9px 16px;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.72);
     border: 1px solid rgba(56, 189, 248, 0.28);
-    border-radius: 18px;
-    padding: 18px;
+    color: #38BDF8;
+    font-weight: 800;
+    font-size: 0.84rem;
+}
+
+.hero {
+    padding: 48px;
+    border-radius: 30px;
+    background:
+        linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(2, 6, 23, 0.97)),
+        radial-gradient(circle at 82% 18%, rgba(56, 189, 248, 0.20), transparent 34%);
+    border: 1px solid rgba(56, 189, 248, 0.24);
+    box-shadow: 0 26px 80px rgba(0,0,0,0.38);
+    margin-bottom: 2rem;
+}
+
+.hero-kicker {
+    color: #38BDF8;
+    font-size: 0.84rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    margin-bottom: 1rem;
+}
+
+.hero-copy {
+    font-size: 1.12rem;
+    line-height: 1.75;
+    color: #CBD5E1;
+    max-width: 770px;
+}
+
+.step-card {
+    background: rgba(15, 23, 42, 0.82);
+    border: 1px solid rgba(56, 189, 248, 0.17);
+    border-radius: 22px;
+    padding: 22px;
+    min-height: 145px;
+    box-shadow: 0 14px 34px rgba(0,0,0,0.18);
+}
+
+.step-number {
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+    background: rgba(37, 99, 235, 0.28);
+    color: #38BDF8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.input-shell {
+    padding: 30px;
+    border-radius: 26px;
+    background: rgba(15, 23, 42, 0.78);
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 18px 42px rgba(0,0,0,0.20);
+}
+
+[data-testid="stFileUploader"] {
+    background: rgba(2, 6, 23, 0.48);
+    border: 1px solid rgba(148, 163, 184, 0.22);
+    border-radius: 16px;
+    padding: 14px;
+}
+
+textarea, input {
+    border-radius: 14px !important;
+    border: 1px solid rgba(148, 163, 184, 0.24) !important;
+}
+
+.stTextArea textarea, .stTextInput input {
+    background-color: #F8FAFC !important;
+    color: #020617 !important;
 }
 
 .stButton > button {
     background: linear-gradient(90deg, #2563EB, #38BDF8);
     color: white;
     border: none;
-    border-radius: 12px;
-    padding: 0.65rem 1.25rem;
-    font-weight: 700;
+    border-radius: 14px;
+    padding: 0.8rem 1.45rem;
+    font-weight: 800;
+    box-shadow: 0 12px 30px rgba(37, 99, 235, 0.32);
 }
 
 .stButton > button:hover {
-    opacity: 0.92;
+    opacity: 0.95;
     transform: translateY(-1px);
 }
 
-[data-testid="stFileUploader"] {
-    background: rgba(15, 23, 42, 0.72);
-    border: 1px solid rgba(148, 163, 184, 0.25);
-    border-radius: 16px;
-    padding: 14px;
-}
-
-textarea, input {
-    border-radius: 12px !important;
-}
-
-.block-container {
-    padding-top: 3rem;
-}
-
-.aligna-card {
-    background: rgba(15, 23, 42, 0.85);
-    border: 1px solid rgba(56, 189, 248, 0.22);
+[data-testid="stMetric"] {
+    background: rgba(15, 23, 42, 0.92);
+    border: 1px solid rgba(56, 189, 248, 0.24);
     border-radius: 20px;
-    padding: 24px;
-    margin-bottom: 20px;
+    padding: 20px;
 }
 
-.aligna-pill {
-    display: inline-block;
-    padding: 6px 12px;
-    border-radius: 999px;
-    background: rgba(37, 99, 235, 0.18);
-    color: #38BDF8;
-    border: 1px solid rgba(56, 189, 248, 0.35);
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 10px;
+.decision-card {
+    padding: 19px 21px;
+    border-radius: 18px;
+    font-weight: 800;
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.16);
+}
+
+.pass-card {
+    background: rgba(16, 185, 129, 0.13);
+    color: #A7F3D0;
+}
+
+.flag-card {
+    background: rgba(245, 158, 11, 0.14);
+    color: #FDE68A;
+}
+
+.review-card {
+    background: rgba(56, 189, 248, 0.13);
+    color: #BAE6FD;
+}
+
+.footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(148, 163, 184, 0.16);
+    color: #94A3B8;
+    font-size: 0.9rem;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -101,28 +231,71 @@ textarea, input {
 N8N_WEBHOOK_URL = st.secrets.get("N8N_WEBHOOK_URL", "").strip()
 
 # -----------------------------
-# HERO
+# LOGO + NAV
 # -----------------------------
-st.markdown('<div class="aligna-pill">AI Brand QA Layer</div>', unsafe_allow_html=True)
+st.markdown('<div class="logo-nav">', unsafe_allow_html=True)
 
-col1, col2 = st.columns([0.72, 0.28])
+nav_left, nav_right = st.columns([0.75, 0.25])
 
-with col1:
-    st.title("Aligna Brand Voice Evaluator")
-    st.caption("Where brand voice stops being subjective and becomes a decision.")
-    st.write(
-        "Evaluate content against your brand voice and receive clear PASS, FLAG, or REVIEW outcomes with explainable feedback."
+with nav_left:
+    st.image("aligna-logo.png", width=230)
+
+with nav_right:
+    st.markdown(
+        """
+        <div style="display:flex; justify-content:flex-end; align-items:center; height:64px;">
+            <div class="nav-pill">Brand Voice QA</div>
+        </div>
+        """,
+        unsafe_allow_html=True
     )
 
-with col2:
-    st.markdown("""
-<div class="aligna-card">
-<h3>Built for</h3>
-<p>Marketing teams, brand managers, social media managers, and content creators who need a fast quality check before publishing.</p>
+st.markdown('</div>', unsafe_allow_html=True)
+
+# -----------------------------
+# HERO
+# -----------------------------
+st.markdown("""
+<div class="hero">
+    <div class="hero-kicker">AI-powered brand voice evaluation</div>
+    <h1>Turn brand voice review into a clear decision.</h1>
+    <p class="hero-copy">
+        Aligna evaluates copy against a learned brand voice and returns structured
+        PASS, FLAG, or REVIEW outcomes with explanations your team can act on before anything goes live.
+    </p>
 </div>
 """, unsafe_allow_html=True)
 
-with st.expander("About", expanded=False):
+step1, step2, step3 = st.columns(3)
+
+with step1:
+    st.markdown("""
+    <div class="step-card">
+        <div class="step-number">1</div>
+        <h3>Upload or paste</h3>
+        <p>Add brand guidelines or paste copy you want to evaluate.</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+with step2:
+    st.markdown("""
+    <div class="step-card">
+        <div class="step-number">2</div>
+        <h3>Evaluate</h3>
+        <p>Aligna checks tone, clarity, and alignment against the brand voice.</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+with step3:
+    st.markdown("""
+    <div class="step-card">
+        <div class="step-number">3</div>
+        <h3>Act with confidence</h3>
+        <p>Review PASS, FLAG, or REVIEW decisions with a shareable HTML report.</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+with st.expander("About Aligna", expanded=False):
     st.markdown(
         """
 **What it does**
@@ -148,9 +321,9 @@ st.divider()
 # INPUTS
 # -----------------------------
 st.header("Evaluate Content")
-st.caption(
-    "Upload brand guidelines if available. The system can still run using built-in brand voice examples."
-)
+st.caption("Brand guideline upload is optional. The tool can still run using built-in brand voice examples.")
+
+st.markdown('<div class="input-shell">', unsafe_allow_html=True)
 
 col1, col2 = st.columns(2)
 
@@ -164,7 +337,7 @@ with col1:
 with col2:
     copy_text = st.text_area(
         "Copy to evaluate — optional for testing",
-        height=160,
+        height=170,
         placeholder="Example: Introducing our latest feature to help marketers move faster with confidence...",
         help="Paste copy you want Aligna to evaluate."
     )
@@ -175,9 +348,6 @@ email = st.text_input(
     help="Optional. Used only if your workflow supports logging or email delivery."
 )
 
-# -----------------------------
-# VALIDATION
-# -----------------------------
 errors = []
 
 if not N8N_WEBHOOK_URL:
@@ -196,17 +366,25 @@ if errors:
 
 run = st.button("Run Evaluation", disabled=bool(errors))
 
+st.markdown('</div>', unsafe_allow_html=True)
+
 st.divider()
 
 # -----------------------------
 # OUTPUTS
 # -----------------------------
-st.header("Outputs")
+st.header("Decision System")
 
-decision_cols = st.columns(3)
-decision_cols[0].success("PASS: On-brand and ready to use")
-decision_cols[1].warning("FLAG: Off-brand or rewrite suggested")
-decision_cols[2].info("REVIEW: Needs human judgment")
+d1, d2, d3 = st.columns(3)
+
+with d1:
+    st.markdown('<div class="decision-card pass-card">PASS<br><span>On-brand and ready to use</span></div>', unsafe_allow_html=True)
+
+with d2:
+    st.markdown('<div class="decision-card flag-card">FLAG<br><span>Off-brand or rewrite suggested</span></div>', unsafe_allow_html=True)
+
+with d3:
+    st.markdown('<div class="decision-card review-card">REVIEW<br><span>Needs human judgment</span></div>', unsafe_allow_html=True)
 
 
 def decode_report(report_b64: str) -> str:
@@ -270,7 +448,8 @@ if run:
         )
         st.stop()
 
-    # Metrics
+    st.markdown("## Evaluation Summary")
+
     c1, c2, c3, c4 = st.columns(4)
     c1.metric("Total Items", data.get("total_items", "—"))
     c2.metric("PASS", data.get("passed", "—"))
@@ -312,5 +491,8 @@ if run:
             mime="application/json",
         )
 
-st.divider()
-st.caption("Aligna · AI-powered brand voice evaluation · Built with Streamlit, n8n, and Ollama")
+st.markdown("""
+<div class="footer">
+    Aligna · AI-powered brand voice evaluation · Built with Streamlit, n8n, and Ollama
+</div>
+""", unsafe_allow_html=True)
