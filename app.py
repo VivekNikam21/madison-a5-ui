@@ -711,8 +711,7 @@ span[class*="review"] {
 .report-legend,
 .legend,
 .summary-box,
-.info-box,
-div:has(> span) {
+.info-box {
     background: #0F172A !important;
     color: #E2E8F0 !important;
     border: 1px solid rgba(56, 189, 248, 0.22) !important;
