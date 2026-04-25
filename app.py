@@ -43,7 +43,7 @@ html, body, [class*="css"] {
 .block-container {
     width: min(94vw, 1480px) !important;
     max-width: 1480px !important;
-    padding: 1.25rem 2rem 3rem !important;
+    padding: 0.75rem 2rem 2rem !important;
 }
 
 [data-testid="stHeader"] {
@@ -57,14 +57,14 @@ h1, h2, h3 {
 }
 
 h1 {
-    font-size: clamp(2.7rem, 4.2vw, 4.7rem) !important;
+    font-size: clamp(2.4rem, 3.6vw, 4.1rem) !important;
     line-height: 1.02 !important;
     max-width: 1080px;
-    margin-bottom: 1.2rem !important;
+    margin-bottom: 0.9rem !important;
 }
 
 h2 {
-    font-size: 2rem !important;
+    font-size: 1.8rem !important;
 }
 
 p, label, span, div {
@@ -72,7 +72,7 @@ p, label, span, div {
 }
 
 hr {
-    margin: 2.35rem 0 !important;
+    margin: 1.45rem 0 !important;
     border-color: rgba(148, 163, 184, 0.14) !important;
 }
 
@@ -88,35 +88,34 @@ hr {
 
 .hero {
     width: 100%;
-    padding: clamp(38px, 5vw, 72px);
+    padding: clamp(28px, 3.5vw, 52px);
     border-radius: 32px;
     background:
         radial-gradient(circle at 86% 16%, rgba(56, 189, 248, 0.18), transparent 34%),
         linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(2, 6, 23, 0.98));
     border: 1px solid var(--border);
-    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.38);
-    margin: 1rem 0 1.35rem;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.34);
+    margin: 0.65rem 0 1rem;
 }
 
 .hero-kicker {
     color: var(--cyan);
-    font-size: 0.82rem;
+    font-size: 0.78rem;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.16em;
-    margin-bottom: 1rem;
+    margin-bottom: 0.85rem;
 }
 
 .hero-copy {
-    font-size: clamp(1rem, 1.15vw, 1.18rem);
-    line-height: 1.65;
+    font-size: clamp(0.94rem, 1vw, 1.08rem);
+    line-height: 1.55;
     color: var(--muted);
     max-width: 1180px;
     margin: 0;
 }
 
-/* STEP CARDS FIX */
-
+/* STEP CARDS */
 div[data-testid="stHorizontalBlock"] > div[data-testid="column"] {
     display: flex !important;
 }
@@ -126,31 +125,30 @@ div[data-testid="stHorizontalBlock"] > div[data-testid="column"] > div {
 }
 
 .step-card {
-    height: 220px !important;
+    height: 175px !important;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-
     background: var(--panel-soft);
     border: 1px solid rgba(56, 189, 248, 0.18);
     border-radius: 22px;
-    padding: 24px;
-    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.20);
+    padding: 20px;
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
 }
 
 .step-card h3 {
-    margin-top: 0.25rem;
-    margin-bottom: 0.65rem;
+    margin-top: 0.15rem;
+    margin-bottom: 0.5rem;
 }
 
 .step-card p {
     margin: 0;
-    line-height: 1.55;
+    line-height: 1.45;
 }
 
 .step-number {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
     border-radius: 999px;
     background: rgba(37, 99, 235, 0.30);
     color: var(--cyan) !important;
@@ -158,7 +156,11 @@ div[data-testid="stHorizontalBlock"] > div[data-testid="column"] > div {
     align-items: center;
     justify-content: center;
     font-weight: 800;
-    margin-bottom: 14px;
+    margin-bottom: 10px;
+}
+
+.after-steps-space {
+    height: 0.75rem;
 }
 
 [data-testid="stExpander"] {
@@ -166,7 +168,7 @@ div[data-testid="stHorizontalBlock"] > div[data-testid="column"] > div {
     border: 1px solid var(--border) !important;
     border-radius: 20px !important;
     overflow: hidden !important;
-    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.18) !important;
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.16) !important;
 }
 
 [data-testid="stExpander"] summary,
@@ -179,11 +181,11 @@ div[data-testid="stHorizontalBlock"] > div[data-testid="column"] > div {
     background: rgba(15, 23, 42, 0.84) !important;
     border: 1px solid rgba(56, 189, 248, 0.20) !important;
     border-radius: 28px !important;
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.26) !important;
-    padding: 18px !important;
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.22) !important;
+    padding: 14px !important;
 }
-/* REMOVE WHITE CORNER BLEED (actual fix) */
 
+/* INPUTS */
 div[data-baseweb="input"],
 div[data-baseweb="textarea"] {
     background: #0B1220 !important;
@@ -192,28 +194,9 @@ div[data-baseweb="textarea"] {
     box-shadow: none !important;
 }
 
-/* kill inner white layer */
 div[data-baseweb="input"] > div,
 div[data-baseweb="textarea"] > div {
     background: transparent !important;
-}
-
-/* remove focus glow completely */
-div[data-baseweb="input"]:focus-within,
-div[data-baseweb="textarea"]:focus-within {
-    border: 1px solid rgba(56, 189, 248, 0.35) !important;
-    box-shadow: none !important;
-}
-
-/* CLEAN INPUT STYLING */
-
-/* Streamlit/BaseWeb input wrappers */
-div[data-baseweb="input"],
-div[data-baseweb="textarea"] {
-    background: #0B1220 !important;
-    border: 1px solid rgba(56, 189, 248, 0.18) !important;
-    border-radius: 12px !important;
-    box-shadow: none !important;
 }
 
 div[data-baseweb="input"]:focus-within,
@@ -223,7 +206,6 @@ div[data-baseweb="textarea"]:focus-within {
     outline: none !important;
 }
 
-/* Actual input fields */
 .stTextInput input,
 .stTextArea textarea {
     background: #0B1220 !important;
@@ -247,7 +229,6 @@ div[data-baseweb="textarea"]:focus-within {
     opacity: 1 !important;
 }
 
-/* uploader */
 [data-testid="stFileUploader"] {
     border: none !important;
     padding: 0 !important;
@@ -259,7 +240,6 @@ div[data-baseweb="textarea"]:focus-within {
     border-radius: 12px !important;
 }
 
-/* upload button */
 [data-testid="stFileUploader"] button {
     background: rgba(56, 189, 248, 0.10) !important;
     color: #38BDF8 !important;
@@ -275,28 +255,17 @@ div[data-baseweb="textarea"]:focus-within {
     stroke: #38BDF8 !important;
 }
 
-/* tooltip/help icons — keep muted, not cyan */
-[data-testid="stTooltipIcon"],
-[data-testid="stTooltipIcon"] *,
-[data-testid="stTooltipIcon"] svg {
-    color: #475569 !important;
-    fill: #475569 !important;
-    stroke: #475569 !important;
-}
-
-/* uploader helper text */
 [data-testid="stFileUploader"] small,
 [data-testid="stFileUploader"] span {
     color: #94A3B8 !important;
 }
 
-/* labels */
 label {
     color: #E2E8F0 !important;
     font-weight: 600 !important;
 }
 
-/* tooltip/help icons — slate gray question mark, no filled circle */
+/* TOOLTIP */
 [data-testid="stTooltipIcon"] {
     color: #94A3B8 !important;
     background: transparent !important;
@@ -312,8 +281,6 @@ label {
     stroke: #94A3B8 !important;
 }
 
-/* TOOLTIP FIX (hover text) */
-
 [data-testid="stTooltipContent"] {
     background: #0B1220 !important;
     color: #E2E8F0 !important;
@@ -322,28 +289,21 @@ label {
     padding: 10px 12px !important;
     font-size: 0.85rem !important;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4) !important;
+    overflow: hidden !important;
 }
 
-/* Tooltip arrow */
 [data-testid="stTooltipContent"]::after {
     border-top-color: #0B1220 !important;
 }
 
-/* Make text fully readable */
 [data-testid="stTooltipContent"] * {
     color: #E2E8F0 !important;
 }
 
-/* fix white corner bleed on tooltip */
-[data-testid="stTooltipContent"] {
-    overflow: hidden !important;
-}
-
-/* lower Run Evaluation button */
+/* BUTTONS */
 .stButton {
-    margin-top: 1.25rem !important;
+    margin-top: 0.9rem !important;
 }
-
 
 .stButton > button,
 .stDownloadButton > button {
@@ -351,14 +311,14 @@ label {
     color: white !important;
     border: 0 !important;
     border-radius: 14px !important;
-    padding: 0.85rem 1.5rem !important;
+    padding: 0.75rem 1.35rem !important;
     font-weight: 800 !important;
-    box-shadow: 0 14px 34px rgba(37, 99, 235, 0.34) !important;
+    box-shadow: 0 12px 28px rgba(37, 99, 235, 0.30) !important;
 }
 
 .stButton > button {
     min-width: 154px !important;
-    height: 54px !important;
+    height: 50px !important;
 }
 
 .stButton > button:hover,
@@ -371,15 +331,15 @@ label {
     background: rgba(15, 23, 42, 0.92);
     border: 1px solid rgba(56, 189, 248, 0.24);
     border-radius: 20px;
-    padding: 20px;
+    padding: 18px;
 }
 
 .decision-card {
-    padding: 22px 24px;
+    padding: 20px 22px;
     border-radius: 20px;
     font-weight: 800;
     border: 1px solid rgba(148, 163, 184, 0.18);
-    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.18);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
 }
 
 .decision-card span {
@@ -403,15 +363,11 @@ label {
 }
 
 .footer {
-    margin-top: 3rem;
-    padding-top: 1.5rem;
+    margin-top: 2rem;
+    padding-top: 1.1rem;
     border-top: 1px solid rgba(148, 163, 184, 0.16);
     color: var(--slate);
     font-size: 0.9rem;
-}
-
-.after-steps-space {
-    height: 1.4rem;
 }
 
 @media (max-width: 900px) {
@@ -422,12 +378,17 @@ label {
     }
 
     .hero {
-        padding: 32px 24px;
+        padding: 28px 22px;
+    }
+
+    .step-card {
+        height: auto !important;
+        min-height: 150px;
     }
 }
-
 </style>
 """, unsafe_allow_html=True)
+
 # -----------------------------
 # CONFIG
 # -----------------------------
@@ -543,7 +504,7 @@ with st.container(border=True):
     with col2:
         copy_text = st.text_area(
             "Copy to evaluate — optional for testing",
-            height=180,
+            height=150,
             placeholder="Example: Introducing our latest feature to help marketers move faster with confidence...",
             help="Paste copy you want Aligna to evaluate."
         )
