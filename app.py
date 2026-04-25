@@ -169,6 +169,28 @@ hr {
     box-shadow: 0 24px 60px rgba(0, 0, 0, 0.26) !important;
     padding: 18px !important;
 }
+/* REMOVE WHITE CORNER BLEED (actual fix) */
+
+div[data-baseweb="input"],
+div[data-baseweb="textarea"] {
+    background: #0B1220 !important;
+    border: 1px solid rgba(56, 189, 248, 0.18) !important;
+    border-radius: 12px !important;
+    box-shadow: none !important;
+}
+
+/* kill inner white layer */
+div[data-baseweb="input"] > div,
+div[data-baseweb="textarea"] > div {
+    background: transparent !important;
+}
+
+/* remove focus glow completely */
+div[data-baseweb="input"]:focus-within,
+div[data-baseweb="textarea"]:focus-within {
+    border: 1px solid rgba(56, 189, 248, 0.35) !important;
+    box-shadow: none !important;
+}
 
 /* CLEAN INPUT STYLING */
 
@@ -297,6 +319,11 @@ label {
 /* Make text fully readable */
 [data-testid="stTooltipContent"] * {
     color: #E2E8F0 !important;
+}
+
+/* fix white corner bleed on tooltip */
+[data-testid="stTooltipContent"] {
+    overflow: hidden !important;
 }
 
 /* lower Run Evaluation button */
