@@ -654,9 +654,13 @@ if run:
         color: #E5E7EB !important;
     }
 
-    h1, h2, h3 {
+    h1, h2, h3, h4, h5, h6 {
         color: #F8FAFC !important;
         letter-spacing: -0.02em !important;
+    }
+
+    p, li, div, section, article {
+        color: #E5E7EB !important;
     }
 
     table {
@@ -698,58 +702,68 @@ if run:
         color: #38BDF8 !important;
         border-radius: 10px !important;
     }
+
+    .report-badge {
+        font-weight: 900 !important;
+        padding: 4px 10px !important;
+        border-radius: 999px !important;
+        display: inline-block !important;
+        margin-right: 10px !important;
+        color: inherit !important;
+    }
 </style>
 """
-if html:
-    aligna_report_css = """
-<style>
-    /* keep your full CSS here */
-</style>
-"""
 
-    if "<head>" in html:
-        html = html.replace("<head>", "<head>" + aligna_report_css)
-    else:
-        html = aligna_report_css + html
+        html = html.replace("background:#fff", "background:#0F172A")
+        html = html.replace("background: #fff", "background:#0F172A")
+        html = html.replace("background:white", "background:#0F172A")
+        html = html.replace("background: white", "background:#0F172A")
+        html = html.replace("color:#111", "color:#E5E7EB")
+        html = html.replace("color: #111", "color:#E5E7EB")
+        html = html.replace("color:black", "color:#E5E7EB")
+        html = html.replace("color: black", "color:#E5E7EB")
 
-    def style_report_badge(match):
-        label = match.group(1)
-        count = match.group(2)
+        if "<head>" in html:
+            html = html.replace("<head>", "<head>" + aligna_report_css)
+        else:
+            html = aligna_report_css + html
 
-        styles = {
-            "PASS": "background:#D1FAE5;color:#065F46;",
-            "FLAG": "background:#FEE2E2;color:#991B1B;",
-            "REVIEW": "background:#FEF3C7;color:#92400E;",
-        }
+        def style_report_badge(match):
+            label = match.group(1)
+            count = match.group(2)
 
-        return (
-            f"<span style='{styles[label]}font-weight:900;"
-            f"padding:4px 10px;border-radius:999px;"
-            f"display:inline-block;margin-right:10px;'>"
-            f"{label}: {count}</span>"
+            styles = {
+                "PASS": "background:#D1FAE5;color:#065F46;",
+                "FLAG": "background:#FEE2E2;color:#991B1B;",
+                "REVIEW": "background:#FEF3C7;color:#92400E;",
+            }
+
+            return (
+                f"<span class='report-badge' style='{styles[label]}'>"
+                f"{label}: {count}</span>"
+            )
+
+        html = re.sub(r"\b(PASS|FLAG|REVIEW):\s*(\d+)", style_report_badge, html)
+
+    st.markdown("### HTML Report Preview")
+    st.caption("A branded report preview designed for brand managers and non-technical stakeholders.")
+
+    if html:
+        st.components.v1.html(html, height=720, scrolling=True)
+        st.download_button(
+            "Download HTML Report",
+            data=html.encode("utf-8"),
+            file_name=report_name,
+            mime="text/html",
         )
-
-    html = re.sub(r"\b(PASS|FLAG|REVIEW):\s*(\d+)", style_report_badge, html)
-
-st.markdown("### HTML Report Preview")
-st.caption("A branded report preview designed for brand managers and non-technical stakeholders.")
-
-if html:
-    st.components.v1.html(html, height=720, scrolling=True)
-    st.download_button(
-        "Download HTML Report",
-        data=html.encode("utf-8"),
-        file_name=report_name,
-        mime="text/html",
-    )
-else:
-    st.warning("No report returned.")
-    st.download_button(
-        "Download Raw JSON",
-        data=resp.text.encode("utf-8"),
-        file_name="n8n_response.json",
-        mime="application/json",
-     )
+    else:
+        st.warning("No report returned.")
+        st.download_button(
+            "Download Raw JSON",
+            data=resp.text.encode("utf-8"),
+            file_name="n8n_response.json",
+            mime="application/json",
+        )
 
 st.markdown("""
 <div class="footer">
