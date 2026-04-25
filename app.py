@@ -692,48 +692,37 @@ if run:
         font-weight: 900 !important;
     }
 
-    /* Report badge readability */
-.badge,
-span[class*="pass"],
-span[class*="flag"],
-span[class*="review"] {
-    color: #020617 !important;
-    font-weight: 900 !important;
-}
-
-/* Report explanation block readability */
-.report-legend,
-.legend,
-.summary-box,
-.info-box,
-div:has(> span) {
-    background: #0F172A !important;
-    color: #E2E8F0 !important;
-    border: 1px solid rgba(56, 189, 248, 0.22) !important;
-    border-radius: 14px !important;
-}
-
-/* Make text inside explanation blocks readable */
-.report-legend *,
-.legend *,
-.summary-box *,
-.info-box * {
-    color: #E2E8F0 !important;
-}
-
-/* Keep labels visually distinct */
-.report-legend strong,
-.legend strong,
-.summary-box strong,
-.info-box strong {
-    color: #F8FAFC !important;
-    font-weight: 900 !important;
-}
-
     code, pre {
         background: #020617 !important;
         color: #38BDF8 !important;
         border-radius: 10px !important;
+    }
+
+    /* FIX: PASS / FLAG / REVIEW badges only */
+
+    span[style*="PASS"],
+    span[style*="FLAG"],
+    span[style*="REVIEW"] {
+        font-weight: 800 !important;
+        padding: 4px 10px !important;
+        border-radius: 999px !important;
+        display: inline-block !important;
+    }
+
+    /* restore readable colors */
+    span[style*="PASS"] {
+        background: rgba(16, 185, 129, 0.18) !important;
+        color: #A7F3D0 !important;
+    }
+
+    span[style*="FLAG"] {
+        background: rgba(239, 68, 68, 0.18) !important;
+        color: #FCA5A5 !important;
+    }
+
+    span[style*="REVIEW"] {
+        background: rgba(245, 158, 11, 0.18) !important;
+        color: #FDE68A !important;
     }
 </style>
 """
