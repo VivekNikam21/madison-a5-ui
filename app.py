@@ -742,6 +742,20 @@ if run:
     div[style*="background-color: white"] * {
         color: #E5E7EB !important;
     }
+
+    /* 🎯 FORCE FIX: explanation / legend box */
+    div:has(> strong) {
+        background: #0F172A !important;
+        color: #E5E7EB !important;
+        border: 1px solid rgba(56, 189, 248, 0.25) !important;
+        border-radius: 14px !important;
+        padding: 14px 16px !important;
+    }
+
+    /* ensure text inside is readable */
+    div:has(> strong) * {
+        color: #E5E7EB !important;
+    }
     
 </style>
 """
