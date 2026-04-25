@@ -115,13 +115,26 @@ hr {
     margin: 0;
 }
 
+/* STEP CARDS FIX */
+
+div[data-testid="stHorizontalBlock"] > div[data-testid="column"] {
+    display: flex !important;
+}
+
+div[data-testid="stHorizontalBlock"] > div[data-testid="column"] > div {
+    width: 100% !important;
+}
+
 .step-card {
-    height: 100%;
+    height: 220px !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
     background: var(--panel-soft);
     border: 1px solid rgba(56, 189, 248, 0.18);
     border-radius: 22px;
     padding: 24px;
-    min-height: 165px;
     box-shadow: 0 16px 36px rgba(0, 0, 0, 0.20);
 }
 
@@ -397,6 +410,10 @@ label {
     font-size: 0.9rem;
 }
 
+.after-steps-space {
+    height: 1.4rem;
+}
+
 @media (max-width: 900px) {
     .block-container {
         width: 94vw !important;
@@ -473,6 +490,8 @@ with step3:
         <p>Review PASS, FLAG, or REVIEW decisions with a shareable HTML report.</p>
     </div>
     """, unsafe_allow_html=True)
+
+st.markdown('<div class="after-steps-space"></div>', unsafe_allow_html=True)
 
 with st.expander("About Aligna", expanded=False):
     st.markdown(
