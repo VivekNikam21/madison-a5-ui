@@ -701,7 +701,11 @@ if run:
 </style>
 """
 if html:
-    aligna_report_css = """..."""  # keep your existing CSS here
+    aligna_report_css = """
+<style>
+    /* keep your full CSS here */
+</style>
+"""
 
     if "<head>" in html:
         html = html.replace("<head>", "<head>" + aligna_report_css)
@@ -727,19 +731,19 @@ if html:
 
     html = re.sub(r"\b(PASS|FLAG|REVIEW):\s*(\d+)", style_report_badge, html)
 
-    st.markdown("### HTML Report Preview")
-    st.caption("A branded report preview designed for brand managers and non-technical stakeholders.")
+st.markdown("### HTML Report Preview")
+st.caption("A branded report preview designed for brand managers and non-technical stakeholders.")
 
-    if html:
-        st.components.v1.html(html, height=720, scrolling=True)
-        st.download_button(
-            "Download HTML Report",
-            data=html.encode("utf-8"),
-            file_name=report_name,
-            mime="text/html",
-        )
-    else:
-        st.warning("No report returned.")
+if html:
+    st.components.v1.html(html, height=720, scrolling=True)
+    st.download_button(
+        "Download HTML Report",
+        data=html.encode("utf-8"),
+        file_name=report_name,
+        mime="text/html",
+    )
+else:
+    st.warning("No report returned.")
         st.download_button(
             "Download Raw JSON",
             data=resp.text.encode("utf-8"),
