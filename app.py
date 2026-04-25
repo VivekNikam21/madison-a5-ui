@@ -470,6 +470,44 @@ if run:
     report_name = data.get("report_file_name", "aligna_brand_voice_report.html")
     report_b64 = data.get("report_base64", "")
     html = decode_report(report_b64)
+        # Force the embedded HTML report to use a readable light theme
+if html:
+    html = html.replace(
+        "<head>",
+        """
+<head>
+<style>
+    html, body {
+        background: #F8FAFC !important;
+        color: #020617 !important;
+        font-family: Inter, Arial, sans-serif !important;
+    }
+
+    table {
+        background: #FFFFFF !important;
+        color: #020617 !important;
+        border-collapse: collapse !important;
+        width: 100% !important;
+    }
+
+    th {
+        background: #E2E8F0 !important;
+        color: #020617 !important;
+        font-weight: 700 !important;
+    }
+
+    td {
+        background: #FFFFFF !important;
+        color: #020617 !important;
+        border: 1px solid #CBD5E1 !important;
+    }
+
+    tr, p, span, div, li {
+        color: #020617 !important;
+    }
+</style>
+"""
+    )
 
     st.markdown("### HTML Report Preview")
     st.caption("A shareable report designed for brand managers and non-technical stakeholders.")
