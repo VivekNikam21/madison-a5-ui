@@ -793,33 +793,50 @@ if run:
                 f"{label}: {count}</span>"
             )
 
-        html = re.sub(r"\b(PASS|FLAG|REVIEW):\s*(\d+)", style_report_badge, html)
-        legend_html = """
-        <div style="background:#020617!important;border:0!important;border-radius:14px!important;padding:0!important;margin:18px 0!important;">
-            <div style="background:#0F172A!important;border:1px solid rgba(56,189,248,0.25)!important;border-radius:14px!important;padding:14px 16px!important;">
-                <div style="background:#111827!important;border:1px solid rgba(56,189,248,0.22)!important;border-radius:12px!important;padding:10px 12px!important;margin-bottom:8px!important;color:#E5E7EB!important;">
-                    <strong style="color:#A7F3D0!important;">PASS</strong>&nbsp;&nbsp; Matches brand voice (no rewrite needed).
-                </div>
-                <div style="background:#111827!important;border:1px solid rgba(56,189,248,0.22)!important;border-radius:12px!important;padding:10px 12px!important;margin-bottom:8px!important;color:#E5E7EB!important;">
-                    <strong style="color:#FCA5A5!important;">FLAG</strong>&nbsp;&nbsp; Does not match brand voice (rewrite suggested).
-                </div>
-                <div style="background:#111827!important;border:1px solid rgba(56,189,248,0.22)!important;border-radius:12px!important;padding:10px 12px!important;color:#E5E7EB!important;">
-                    <strong style="color:#FDE68A!important;">REVIEW</strong>&nbsp;&nbsp; Model output couldn’t be parsed; re-run recommended.
-                </div>
-            </div>
-        </div>
-        """
+        # Replace PASS / FLAG / REVIEW badges
+html = re.sub(r"\b(PASS|FLAG|REVIEW):\s*(\d+)", style_report_badge, html)
 
-    legend_pattern = re.compile(
-        r"<div[^>]*style=[\"'][^\"']*(?:background|background-color)\s*:\s*(?:#fff|#ffffff|white|#f8fafc|#f9fafb|#f3f4f6)[^\"']*[\"'][^>]*>"
-        r"[\s\S]*?Matches brand voice \(no rewrite needed\)\."
-        r"[\s\S]*?Does not match brand voice \(rewrite suggested\)\."
-        r"[\s\S]*?Model output couldn[’']t be parsed; re-run recommended\."
-        r"[\s\S]*?</div>\s*</div>",
-        flags=re.IGNORECASE
-    )
+# --- FIX WHITE LEGEND BLOCK ---
+legend_html = """
+<div style="background:#020617 !important;border:1px solid rgba(56,189,248,0.25) !important;border-radius:16px !important;padding:16px !important;margin:18px 0 !important;">
+  <div style="background:#0F172A !important;border:1px solid rgba(56,189,248,0.25);padding:12px;border-radius:12px;margin-bottom:10px;">
+    <strong style="color:#A7F3D0;">PASS</strong>&nbsp;&nbsp;Matches brand voice (no rewrite needed).
+  </div>
+  <div style="background:#0F172A !important;border:1px solid rgba(56,189,248,0.25);padding:12px;border-radius:12px;margin-bottom:10px;">
+    <strong style="color:#FCA5A5;">FLAG</strong>&nbsp;&nbsp;Does not match brand voice (rewrite suggested).
+  </div>
+  <div style="background:#0F172A !important;border:1px solid rgba(56,189,248,0.25);padding:12px;border-radius:12px;">
+    <strong style="color:#FDE68A;">REVIEW</strong>&nbsp;&nbsp;Model output couldn’t be parsed; re-run recommended.
+  </div>
+</div>
+"""
 
-    html = legend_pattern.sub(legend_html, html)
+marker = "Matches brand voice (no rewrite needed)."
+if marker in html:
+    marker_pos = html.find(marker)
+
+    # find INNER div first
+    inner_start = html.rfind("<div", 0, marker_pos)
+
+    # then go ONE LEVEL UP (this removes the white wrapper)
+    start = html.rfind("<div", 0, inner_start)
+
+    end_marker = "re-run recommended."
+    end_marker_pos = html.find(end_marker, marker_pos)
+
+    if start != -1 and end_marker_pos != -1:
+        # close inner div
+        end = html.find("</div>", end_marker_pos)
+        if end != -1:
+            end += len("</div>")
+
+            # close parent div (the white box)
+            end = html.find("</div>", end)
+            if end != -1:
+                end += len("</div>")
+
+                # replace whole block
+                html = html[:start] + legend_html + html[end:]
         
     
     st.markdown("### HTML Report Preview")
