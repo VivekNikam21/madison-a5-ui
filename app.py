@@ -108,6 +108,17 @@ hr {
     margin-bottom: 0.85rem;
 }
 
+.hero-title {
+    font-family: 'Sora', sans-serif;
+    color: var(--text) !important;
+    letter-spacing: -0.045em;
+    font-size: clamp(2.45rem, 3.15vw, 4.0rem);
+    line-height: 1.05;
+    font-weight: 800;
+    margin: 0 0 1.05rem 0;
+    white-space: nowrap;
+}
+
 .hero-copy {
     font-size: clamp(0.94rem, 1vw, 1.08rem);
     line-height: 1.55;
@@ -382,6 +393,10 @@ label {
         padding: 28px 22px;
     }
 
+    .hero-title {
+        white-space: normal;
+    }
+
     .step-card {
         height: auto !important;
         min-height: 150px;
@@ -419,7 +434,7 @@ with nav_right:
 st.markdown("""
 <div class="hero">
     <div class="hero-kicker">AI-powered brand voice evaluation</div>
-    <h1>Turn brand voice review into a clear decision.</h1>
+    <div class="hero-title">Turn brand voice review into a clear decision.</div>
     <p class="hero-copy">Aligna evaluates copy against a learned brand voice and returns structured PASS, FLAG, or REVIEW outcomes with explanations your team can act on before anything goes live.</p>
 </div>
 """, unsafe_allow_html=True)
@@ -711,52 +726,6 @@ if run:
         margin-right: 10px !important;
         color: inherit !important;
     }
-
-    /* Keep report badges readable */
-    .report-badge,
-    .report-badge * {
-        color: inherit !important;
-    }
-
-    /* Fix white PASS/FLAG/REVIEW explanation box */
-    div[style*="background:#fff"],
-    div[style*="background: #fff"],
-    div[style*="background:white"],
-    div[style*="background: white"],
-    div[style*="background-color:#fff"],
-    div[style*="background-color: #fff"],
-    div[style*="background-color:white"],
-    div[style*="background-color: white"] {
-        background: #0F172A !important;
-        color: #E5E7EB !important;
-        border: 1px solid rgba(56, 189, 248, 0.25) !important;
-    }
-
-    div[style*="background:#fff"] *,
-    div[style*="background: #fff"] *,
-    div[style*="background:white"] *,
-    div[style*="background: white"] *,
-    div[style*="background-color:#fff"] *,
-    div[style*="background-color: #fff"] *,
-    div[style*="background-color:white"] *,
-    div[style*="background-color: white"] * {
-        color: #E5E7EB !important;
-    }
-
-    /* 🎯 FORCE FIX: explanation / legend box */
-    div:has(> strong) {
-        background: #0F172A !important;
-        color: #E5E7EB !important;
-        border: 1px solid rgba(56, 189, 248, 0.25) !important;
-        border-radius: 14px !important;
-        padding: 14px 16px !important;
-    }
-
-    /* ensure text inside is readable */
-    div:has(> strong) * {
-        color: #E5E7EB !important;
-    }
-    
 </style>
 """
 
@@ -793,11 +762,9 @@ if run:
                 f"{label}: {count}</span>"
             )
 
-        # Replace PASS / FLAG / REVIEW badges
-html = re.sub(r"\b(PASS|FLAG|REVIEW):\s*(\d+)", style_report_badge, html)
+        html = re.sub(r"\b(PASS|FLAG|REVIEW):\s*(\d+)", style_report_badge, html)
 
-# --- FIX WHITE LEGEND BLOCK ---
-legend_html = """
+        legend_html = """
 <div style="background:#020617 !important;border:1px solid rgba(56,189,248,0.25) !important;border-radius:16px !important;padding:16px !important;margin:18px 0 !important;">
   <div style="background:#0F172A !important;border:1px solid rgba(56,189,248,0.25);padding:12px;border-radius:12px;margin-bottom:10px;">
     <strong style="color:#A7F3D0;">PASS</strong>&nbsp;&nbsp;Matches brand voice (no rewrite needed).
@@ -811,34 +778,24 @@ legend_html = """
 </div>
 """
 
-marker = "Matches brand voice (no rewrite needed)."
-if marker in html:
-    marker_pos = html.find(marker)
+        marker = "Matches brand voice (no rewrite needed)."
+        if marker in html:
+            marker_pos = html.find(marker)
+            inner_start = html.rfind("<div", 0, marker_pos)
+            start = html.rfind("<div", 0, inner_start)
 
-    # find INNER div first
-    inner_start = html.rfind("<div", 0, marker_pos)
+            end_marker = "re-run recommended."
+            end_marker_pos = html.find(end_marker, marker_pos)
 
-    # then go ONE LEVEL UP (this removes the white wrapper)
-    start = html.rfind("<div", 0, inner_start)
+            if start != -1 and end_marker_pos != -1:
+                end = html.find("</div>", end_marker_pos)
+                if end != -1:
+                    end += len("</div>")
+                    end = html.find("</div>", end)
+                    if end != -1:
+                        end += len("</div>")
+                        html = html[:start] + legend_html + html[end:]
 
-    end_marker = "re-run recommended."
-    end_marker_pos = html.find(end_marker, marker_pos)
-
-    if start != -1 and end_marker_pos != -1:
-        # close inner div
-        end = html.find("</div>", end_marker_pos)
-        if end != -1:
-            end += len("</div>")
-
-            # close parent div (the white box)
-            end = html.find("</div>", end)
-            if end != -1:
-                end += len("</div>")
-
-                # replace whole block
-                html = html[:start] + legend_html + html[end:]
-        
-    
     st.markdown("### HTML Report Preview")
     st.caption("A branded report preview designed for brand managers and non-technical stakeholders.")
 
