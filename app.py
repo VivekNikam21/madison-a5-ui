@@ -1,4 +1,5 @@
 import base64
+import re
 import requests
 import streamlit as st
 
@@ -698,42 +699,7 @@ if run:
         border-radius: 10px !important;
     }
 
-    /* Report badge readability */
-.badge,
-span[class*="pass"],
-span[class*="flag"],
-span[class*="review"] {
-    color: #020617 !important;
-    font-weight: 900 !important;
-}
-
-/* Report explanation block readability */
-.report-legend,
-.legend,
-.summary-box,
-.info-box {
-    background: #0F172A !important;
-    color: #E2E8F0 !important;
-    border: 1px solid rgba(56, 189, 248, 0.22) !important;
-    border-radius: 14px !important;
-}
-
-/* Make text inside explanation blocks readable */
-.report-legend *,
-.legend *,
-.summary-box *,
-.info-box * {
-    color: #E2E8F0 !important;
-}
-
-/* Keep labels visually distinct */
-.report-legend strong,
-.legend strong,
-.summary-box strong,
-.info-box strong {
-    color: #F8FAFC !important;
-    font-weight: 900 !important;
-}
+  
 </style>
 """
         if "<head>" in html:
@@ -741,13 +707,24 @@ span[class*="review"] {
         else:
             html = aligna_report_css + html
 
-        html = html.replace("PASS:", "<span style='color:#A7F3D0!important;font-weight:900;'>PASS:</span>")
-        html = html.replace("FLAG:", "<span style='color:#FCA5A5!important;font-weight:900;'>FLAG:</span>")
-        html = html.replace("REVIEW:", "<span style='color:#FDE68A!important;font-weight:900;'>REVIEW:</span>")
-        html = html.replace("background:#fff", "background:#0F172A")
-        html = html.replace("background: #fff", "background:#0F172A")
-        html = html.replace("color:#111", "color:#E2E8F0")
-        html = html.replace("color: #111", "color:#E2E8F0")
+        def style_report_badge(match):
+    label = match.group(1)
+    count = match.group(2)
+
+    styles = {
+        "PASS": "background:#D1FAE5;color:#065F46;",
+        "FLAG": "background:#FEE2E2;color:#991B1B;",
+        "REVIEW": "background:#FEF3C7;color:#92400E;",
+    }
+
+    return (
+        f"<span style='{styles[label]}font-weight:900;"
+        f"padding:4px 10px;border-radius:999px;"
+        f"display:inline-block;margin-right:10px;'>"
+        f"{label}: {count}</span>"
+    )
+
+html = re.sub(r"\\b(PASS|FLAG|REVIEW):\\s*(\\d+)", style_report_badge, html)
 
     st.markdown("### HTML Report Preview")
     st.caption("A branded report preview designed for brand managers and non-technical stakeholders.")
