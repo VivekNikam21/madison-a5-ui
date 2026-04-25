@@ -112,7 +112,7 @@ hr {
     font-family: 'Sora', sans-serif;
     color: var(--text) !important;
     letter-spacing: -0.045em;
-    font-size: clamp(2.45rem, 3.15vw, 4.0rem);
+    font-size: clamp(2.1rem, 2.6vw, 3.2rem);
     line-height: 1.05;
     font-weight: 800;
     margin: 0 0 1.05rem 0;
