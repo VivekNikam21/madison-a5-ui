@@ -8,9 +8,6 @@ st.set_page_config(
     layout="wide"
 )
 
-# -----------------------------
-# BRAND CSS
-# -----------------------------
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
@@ -37,9 +34,11 @@ html, body, [class*="css"] {
     color: var(--text);
 }
 
-.block-container {
-    padding-top: 1.6rem;
-    max-width: 1450px;
+div.block-container {
+    max-width: 1320px !important;
+    padding-top: 1.5rem !important;
+    padding-left: 3rem !important;
+    padding-right: 3rem !important;
 }
 
 [data-testid="stHeader"] {
@@ -55,7 +54,7 @@ h1, h2, h3 {
 h1 {
     font-size: 3.35rem !important;
     line-height: 1.05 !important;
-    margin-bottom: 1rem !important;
+    margin-bottom: 0.8rem !important;
 }
 
 h2 {
@@ -77,14 +76,15 @@ p, label, span, div {
 }
 
 .hero {
-    padding: 48px;
+    padding: 44px 48px;
     border-radius: 30px;
     background:
         linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(2, 6, 23, 0.97)),
         radial-gradient(circle at 82% 18%, rgba(56, 189, 248, 0.20), transparent 34%);
     border: 1px solid rgba(56, 189, 248, 0.24);
     box-shadow: 0 26px 80px rgba(0,0,0,0.38);
-    margin-bottom: 2.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 2rem;
 }
 
 .hero-kicker {
@@ -97,10 +97,11 @@ p, label, span, div {
 }
 
 .hero-copy {
-    font-size: 1.12rem;
-    line-height: 1.6;
+    font-size: 1.08rem;
+    line-height: 1.55;
     color: #CBD5E1;
-    max-width: 1180px;
+    max-width: 1120px;
+    margin-top: 1.1rem;
 }
 
 .step-card {
@@ -125,20 +126,17 @@ p, label, span, div {
     margin-bottom: 12px;
 }
 
-/* Streamlit expander fix */
 [data-testid="stExpander"] {
     background: rgba(15, 23, 42, 0.78) !important;
     border: 1px solid rgba(56, 189, 248, 0.18) !important;
     border-radius: 18px !important;
     overflow: hidden !important;
+    margin-top: 1rem !important;
 }
 
-[data-testid="stExpander"] details {
-    background: rgba(15, 23, 42, 0.78) !important;
-}
-
+[data-testid="stExpander"] details,
 [data-testid="stExpander"] summary {
-    background: rgba(15, 23, 42, 0.94) !important;
+    background: rgba(15, 23, 42, 0.88) !important;
     color: #F8FAFC !important;
 }
 
@@ -146,61 +144,83 @@ p, label, span, div {
     color: #F8FAFC !important;
 }
 
-/* Style bordered Streamlit container for Evaluate Content */
-[data-testid="stVerticalBlockBorderWrapper"] {
-    background: rgba(15, 23, 42, 0.70) !important;
-    border: 1px solid rgba(56, 189, 248, 0.18) !important;
-    border-radius: 26px !important;
-    box-shadow: 0 18px 42px rgba(0,0,0,0.20) !important;
-    padding: 20px !important;
+hr {
+    margin-top: 2.6rem !important;
+    margin-bottom: 2.6rem !important;
+    border-color: rgba(148, 163, 184, 0.10) !important;
 }
 
-/* Inputs */
+[data-testid="stVerticalBlockBorderWrapper"] {
+    background: rgba(15, 23, 42, 0.58) !important;
+    border: 1px solid rgba(56, 189, 248, 0.16) !important;
+    border-radius: 26px !important;
+    box-shadow: 0 18px 42px rgba(0,0,0,0.18) !important;
+    padding: 26px !important;
+}
+
 [data-testid="stFileUploader"] {
-    background: rgba(2, 6, 23, 0.50);
-    border: 1px solid rgba(56, 189, 248, 0.22);
-    border-radius: 16px;
-    padding: 14px;
+    background: rgba(2, 6, 23, 0.55) !important;
+    border: 1px solid rgba(56, 189, 248, 0.32) !important;
+    border-radius: 16px !important;
+    padding: 14px !important;
 }
 
 [data-testid="stFileUploader"] section {
-    background: rgba(15, 23, 42, 0.86) !important;
-    border: 1px dashed rgba(56, 189, 248, 0.35) !important;
+    background: rgba(15, 23, 42, 0.82) !important;
+    border: 1px dashed rgba(56, 189, 248, 0.38) !important;
     border-radius: 14px !important;
     padding: 18px !important;
 }
 
 [data-testid="stFileUploader"] button {
-    background: rgba(37, 99, 235, 0.22) !important;
-    color: #E0F2FE !important;
-    border: 1px solid rgba(56, 189, 248, 0.45) !important;
+    background: rgba(37, 99, 235, 0.24) !important;
+    color: #F8FAFC !important;
+    border: 1px solid rgba(56, 189, 248, 0.48) !important;
     border-radius: 12px !important;
 }
 
-.stFileUploader, .stTextArea, .stTextInput {
-    margin-bottom: 16px !important;
-}
-
-textarea, input {
-    border-radius: 14px !important;
-    border: 1px solid rgba(56, 189, 248, 0.34) !important;
-}
-
-textarea:focus, input:focus {
-    border: 1px solid #38BDF8 !important;
-    box-shadow: 0 0 0 1px rgba(56,189,248,0.35) !important;
-}
-
-.stTextArea textarea, .stTextInput input {
-    background-color: rgba(15, 23, 42, 0.92) !important;
-    color: #F8FAFC !important;
-}
-
-.stTextArea textarea::placeholder, .stTextInput input::placeholder {
+[data-testid="stFileUploader"] small,
+[data-testid="stFileUploader"] span {
     color: #94A3B8 !important;
 }
 
-.stButton > button, .stDownloadButton > button {
+.stFileUploader, .stTextArea, .stTextInput {
+    margin-bottom: 18px !important;
+}
+
+textarea, input {
+    border-radius: 16px !important;
+    border: 1px solid rgba(56, 189, 248, 0.38) !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.stTextArea textarea,
+.stTextInput input {
+    background: rgba(2, 6, 23, 0.68) !important;
+    color: #F8FAFC !important;
+    border: 1px solid rgba(56, 189, 248, 0.38) !important;
+    box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.8) !important;
+}
+
+.stTextArea textarea {
+    resize: none !important;
+}
+
+.stTextArea textarea:focus,
+.stTextInput input:focus {
+    border: 1px solid #38BDF8 !important;
+    box-shadow: 0 0 0 1px rgba(56,189,248,0.42), 0 0 28px rgba(56,189,248,0.10) !important;
+}
+
+.stTextArea textarea::placeholder,
+.stTextInput input::placeholder {
+    color: #94A3B8 !important;
+    opacity: 1 !important;
+}
+
+.stButton > button,
+.stDownloadButton > button {
     background: linear-gradient(90deg, #2563EB, #38BDF8) !important;
     color: white !important;
     border: none !important;
@@ -250,14 +270,8 @@ textarea:focus, input:focus {
 </style>
 """, unsafe_allow_html=True)
 
-# -----------------------------
-# CONFIG
-# -----------------------------
 N8N_WEBHOOK_URL = st.secrets.get("N8N_WEBHOOK_URL", "").strip()
 
-# -----------------------------
-# LOGO + NAV
-# -----------------------------
 nav_left, nav_right = st.columns([0.75, 0.25])
 
 with nav_left:
@@ -273,9 +287,6 @@ with nav_right:
         unsafe_allow_html=True
     )
 
-# -----------------------------
-# HERO
-# -----------------------------
 st.markdown("""
 <div class="hero">
     <div class="hero-kicker">AI-powered brand voice evaluation</div>
@@ -313,8 +324,6 @@ with step3:
     </div>
     """, unsafe_allow_html=True)
 
-st.markdown("<div style='margin-top:1rem'></div>", unsafe_allow_html=True)
-
 with st.expander("About Aligna", expanded=False):
     st.markdown(
         """
@@ -337,14 +346,11 @@ Portfolio: https://vivek-nikam-portfolio.framer.website/
 
 st.divider()
 
-# -----------------------------
-# INPUTS
-# -----------------------------
 with st.container(border=True):
     st.header("Evaluate Content")
     st.caption("Brand guideline upload is optional. The tool can still run using built-in brand voice examples.")
 
-    st.markdown("<div style='height:24px'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='height:18px'></div>", unsafe_allow_html=True)
 
     col1, col2 = st.columns([1, 1], gap="large")
 
@@ -367,7 +373,7 @@ with st.container(border=True):
             help="Paste copy you want Aligna to evaluate."
         )
 
-    st.markdown("<div style='height:12px'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='height:8px'></div>", unsafe_allow_html=True)
 
     st.markdown("#### Email")
     email = st.text_input(
@@ -393,15 +399,12 @@ with st.container(border=True):
         for e in errors:
             st.error(e)
 
-    st.markdown("<div style='height:16px'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='height:12px'></div>", unsafe_allow_html=True)
 
     run = st.button("Run Evaluation", disabled=bool(errors))
 
 st.divider()
 
-# -----------------------------
-# OUTPUTS
-# -----------------------------
 st.header("Decision System")
 
 d1, d2, d3 = st.columns(3)
