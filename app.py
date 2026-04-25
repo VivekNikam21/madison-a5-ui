@@ -706,8 +706,8 @@ if run:
             html = aligna_report_css + html
 
         def style_report_badge(match):
-    label = match.group(1)
-    count = match.group(2)
+            label = match.group(1)
+            count = match.group(2)
 
     styles = {
         "PASS": "background:#D1FAE5;color:#065F46;",
