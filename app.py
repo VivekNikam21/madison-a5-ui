@@ -700,29 +700,32 @@ if run:
     }
 </style>
 """
-        if "<head>" in html:
-            html = html.replace("<head>", "<head>" + aligna_report_css)
-        else:
-            html = aligna_report_css + html
+if html:
+    aligna_report_css = """..."""  # keep your existing CSS here
 
-        def style_report_badge(match):
-            label = match.group(1)
-            count = match.group(2)
+    if "<head>" in html:
+        html = html.replace("<head>", "<head>" + aligna_report_css)
+    else:
+        html = aligna_report_css + html
 
-    styles = {
-        "PASS": "background:#D1FAE5;color:#065F46;",
-        "FLAG": "background:#FEE2E2;color:#991B1B;",
-        "REVIEW": "background:#FEF3C7;color:#92400E;",
-    }
+    def style_report_badge(match):
+        label = match.group(1)
+        count = match.group(2)
 
-    return (
-        f"<span style='{styles[label]}font-weight:900;"
-        f"padding:4px 10px;border-radius:999px;"
-        f"display:inline-block;margin-right:10px;'>"
-        f"{label}: {count}</span>"
-    )
+        styles = {
+            "PASS": "background:#D1FAE5;color:#065F46;",
+            "FLAG": "background:#FEE2E2;color:#991B1B;",
+            "REVIEW": "background:#FEF3C7;color:#92400E;",
+        }
 
-html = re.sub(r"\\b(PASS|FLAG|REVIEW):\\s*(\\d+)", style_report_badge, html)
+        return (
+            f"<span style='{styles[label]}font-weight:900;"
+            f"padding:4px 10px;border-radius:999px;"
+            f"display:inline-block;margin-right:10px;'>"
+            f"{label}: {count}</span>"
+        )
+
+    html = re.sub(r"\b(PASS|FLAG|REVIEW):\s*(\d+)", style_report_badge, html)
 
     st.markdown("### HTML Report Preview")
     st.caption("A branded report preview designed for brand managers and non-technical stakeholders.")
