@@ -277,6 +277,28 @@ label {
     stroke: #94A3B8 !important;
 }
 
+/* TOOLTIP FIX (hover text) */
+
+[data-testid="stTooltipContent"] {
+    background: #0B1220 !important;
+    color: #E2E8F0 !important;
+    border: 1px solid rgba(56, 189, 248, 0.25) !important;
+    border-radius: 10px !important;
+    padding: 10px 12px !important;
+    font-size: 0.85rem !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Tooltip arrow */
+[data-testid="stTooltipContent"]::after {
+    border-top-color: #0B1220 !important;
+}
+
+/* Make text fully readable */
+[data-testid="stTooltipContent"] * {
+    color: #E2E8F0 !important;
+}
+
 /* lower Run Evaluation button */
 .stButton {
     margin-top: 1.25rem !important;
