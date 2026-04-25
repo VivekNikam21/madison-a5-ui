@@ -698,8 +698,6 @@ if run:
         color: #38BDF8 !important;
         border-radius: 10px !important;
     }
-
-  
 </style>
 """
         if "<head>" in html:
