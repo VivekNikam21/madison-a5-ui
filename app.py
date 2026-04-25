@@ -162,7 +162,6 @@ hr {
     color: var(--text) !important;
 }
 
-/* Main bordered form container */
 [data-testid="stVerticalBlockBorderWrapper"] {
     background: rgba(15, 23, 42, 0.84) !important;
     border: 1px solid rgba(56, 189, 248, 0.20) !important;
@@ -171,122 +170,43 @@ hr {
     padding: 18px !important;
 }
 
-/* Form column alignment */
-[data-testid="column"] {
-    display: flex !important;
-    flex-direction: column !important;
-}
+/* CLEAN INPUT STYLING */
 
-/* Labels */
-.stTextArea label,
-.stTextInput label,
-[data-testid="stFileUploader"] label {
-    color: #E2E8F0 !important;
-    font-weight: 700 !important;
-    font-size: 0.88rem !important;
-    margin-bottom: 0.45rem !important;
-}
-
-/* Help icons */
-[data-testid="stTooltipIcon"] {
-    color: #38BDF8 !important;
-}
-
-/* File uploader reset */
-[data-testid="stFileUploader"] {
-    background: transparent !important;
-    border: none !important;
-    border-radius: 0 !important;
-    padding: 0 !important;
-    margin-bottom: 1.1rem !important;
-}
-
-/* File uploader dropzone - matched to textarea height */
-[data-testid="stFileUploader"] section {
-    min-height: 170px !important;
-    height: 170px !important;
-    background:
-        linear-gradient(180deg, rgba(15, 23, 42, 0.98), rgba(2, 6, 23, 0.94)) !important;
-    border: 1px dashed rgba(56, 189, 248, 0.42) !important;
-    border-radius: 18px !important;
-    display: flex !important;
-    align-items: center !important;
-    padding: 22px !important;
-    box-shadow:
-        inset 0 0 0 1px rgba(148, 163, 184, 0.04),
-        0 10px 24px rgba(0, 0, 0, 0.16) !important;
-}
-
-/* File uploader button */
-[data-testid="stFileUploader"] button {
-    background: rgba(37, 99, 235, 0.32) !important;
-    color: #F8FAFC !important;
-    border: 1px solid rgba(56, 189, 248, 0.58) !important;
-    border-radius: 13px !important;
-    font-weight: 800 !important;
-    padding: 0.65rem 1rem !important;
-}
-
-/* File uploader text */
-[data-testid="stFileUploader"] small,
-[data-testid="stFileUploader"] span {
-    color: #94A3B8 !important;
-}
-
-/* Text area wrapper */
-div[data-testid="stTextArea"] {
-    margin-bottom: 1.1rem !important;
-}
-
-/* Textarea fixed height to match upload box */
+.stTextInput input,
 .stTextArea textarea {
-    min-height: 170px !important;
-    height: 170px !important;
-    resize: none !important;
-    padding: 16px 18px !important;
-}
-
-/* Email input wrapper */
-div[data-testid="stTextInput"] {
-    margin-bottom: 1rem !important;
-}
-
-.stTextInput input {
-    height: 54px !important;
-    padding: 0 18px !important;
-}
-
-/* Shared input style */
-.stTextArea textarea,
-.stTextInput input {
-    background: #08111F !important;
+    background: #0B1220 !important;
     color: #F8FAFC !important;
-    border: 1px solid rgba(56, 189, 248, 0.38) !important;
-    border-radius: 18px !important;
-    font-size: 0.98rem !important;
-    line-height: 1.55 !important;
-    box-shadow:
-        inset 0 0 0 1px rgba(148, 163, 184, 0.06),
-        0 10px 24px rgba(0, 0, 0, 0.16) !important;
+    border: 1px solid rgba(56, 189, 248, 0.25) !important;
+    border-radius: 12px !important;
 }
 
-/* Focus state */
-.stTextArea textarea:focus,
-.stTextInput input:focus {
+/* remove ugly white glow */
+.stTextInput input:focus,
+.stTextArea textarea:focus {
     border-color: #38BDF8 !important;
-    box-shadow:
-        0 0 0 2px rgba(56, 189, 248, 0.22),
-        0 12px 28px rgba(0, 0, 0, 0.22) !important;
+    box-shadow: none !important;
+    outline: none !important;
 }
 
-/* Placeholder */
-.stTextArea textarea::placeholder,
-.stTextInput input::placeholder {
-    color: #94A3B8 !important;
-    opacity: 0.95 !important;
+/* uploader */
+[data-testid="stFileUploader"] section {
+    background: #0B1220 !important;
+    border: 1px dashed rgba(56, 189, 248, 0.35) !important;
+    border-radius: 12px !important;
 }
 
-/* Button */
+/* remove extra borders */
+[data-testid="stFileUploader"] {
+    border: none !important;
+    padding: 0 !important;
+}
+
+/* labels */
+label {
+    color: #E2E8F0 !important;
+    font-weight: 600 !important;
+}
+
 .stButton {
     margin-top: 0.15rem !important;
 }
@@ -365,12 +285,6 @@ div[data-testid="stTextInput"] {
 
     .hero {
         padding: 32px 24px;
-    }
-
-    [data-testid="stFileUploader"] section,
-    .stTextArea textarea {
-        height: 150px !important;
-        min-height: 150px !important;
     }
 }
 </style>
@@ -471,7 +385,7 @@ with st.container(border=True):
     st.header("Evaluate Content")
     st.caption("Upload is optional. Aligna can still run using built-in brand voice examples when no brand guideline PDF is added.")
 
-    col1, col2 = st.columns(2, gap="medium")
+    col1, col2 = st.columns([1, 1.2], gap="large")
 
     with col1:
         brand_pdf = st.file_uploader(
@@ -480,19 +394,19 @@ with st.container(border=True):
             help="Optional. Uploading guidelines can support richer future evaluation."
         )
 
+        email = st.text_input(
+            "Email — optional",
+            placeholder="name@example.com",
+            help="Optional. Used only if your workflow supports logging or email delivery."
+        )
+
     with col2:
         copy_text = st.text_area(
             "Copy to evaluate — optional for testing",
-            height=170,
+            height=220,
             placeholder="Example: Introducing our latest feature to help marketers move faster with confidence...",
             help="Paste copy you want Aligna to evaluate."
         )
-
-    email = st.text_input(
-        "Email — optional",
-        placeholder="name@example.com",
-        help="Optional. Used only if your workflow supports logging or email delivery."
-    )
 
     errors = []
 
