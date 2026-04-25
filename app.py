@@ -66,24 +66,6 @@ p, label, span, div {
     color: var(--muted);
 }
 
-.logo-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2.2rem;
-}
-
-.logo-wrap {
-    display: flex;
-    align-items: center;
-}
-
-.logo-wrap img {
-    max-width: 230px;
-    height: auto;
-    filter: drop-shadow(0 0 24px rgba(56, 189, 248, 0.22));
-}
-
 .nav-pill {
     padding: 9px 16px;
     border-radius: 999px;
@@ -143,46 +125,79 @@ p, label, span, div {
     margin-bottom: 12px;
 }
 
-.input-shell {
-    padding: 30px;
-    border-radius: 26px;
-    background: rgba(15, 23, 42, 0.78);
-    border: 1px solid rgba(148, 163, 184, 0.18);
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 18px 42px rgba(0,0,0,0.20);
+/* Fix Streamlit expander */
+[data-testid="stExpander"] {
+    background: rgba(15, 23, 42, 0.78) !important;
+    border: 1px solid rgba(56, 189, 248, 0.18) !important;
+    border-radius: 18px !important;
+    overflow: hidden !important;
 }
 
+[data-testid="stExpander"] details {
+    background: rgba(15, 23, 42, 0.78) !important;
+}
+
+[data-testid="stExpander"] summary {
+    background: rgba(15, 23, 42, 0.94) !important;
+    color: #F8FAFC !important;
+}
+
+[data-testid="stExpander"] summary * {
+    color: #F8FAFC !important;
+}
+
+/* Bordered Streamlit container used for Evaluate Content */
+[data-testid="stVerticalBlockBorderWrapper"] {
+    background: rgba(15, 23, 42, 0.78) !important;
+    border: 1px solid rgba(56, 189, 248, 0.22) !important;
+    border-radius: 26px !important;
+    box-shadow: 0 18px 42px rgba(0,0,0,0.20) !important;
+    padding: 10px !important;
+}
+
+/* Inputs */
 [data-testid="stFileUploader"] {
-    background: rgba(2, 6, 23, 0.48);
-    border: 1px solid rgba(148, 163, 184, 0.22);
+    background: rgba(2, 6, 23, 0.50);
+    border: 1px solid rgba(56, 189, 248, 0.22);
     border-radius: 16px;
     padding: 14px;
 }
 
+[data-testid="stFileUploader"] section {
+    background: rgba(15, 23, 42, 0.86) !important;
+    border: 1px dashed rgba(56, 189, 248, 0.35) !important;
+    border-radius: 14px !important;
+}
+
+[data-testid="stFileUploader"] button {
+    background: rgba(37, 99, 235, 0.22) !important;
+    color: #E0F2FE !important;
+    border: 1px solid rgba(56, 189, 248, 0.45) !important;
+    border-radius: 12px !important;
+}
+
 textarea, input {
     border-radius: 14px !important;
-    border: 1px solid rgba(148, 163, 184, 0.24) !important;
+    border: 1px solid rgba(56, 189, 248, 0.28) !important;
 }
 
 .stTextArea textarea, .stTextInput input {
-    background-color: #F8FAFC !important;
-    color: #020617 !important;
+    background-color: rgba(15, 23, 42, 0.92) !important;
+    color: #F8FAFC !important;
 }
 
-.stButton > button {
-    background: linear-gradient(90deg, #2563EB, #38BDF8);
-    color: white;
-    border: none;
-    border-radius: 14px;
-    padding: 0.8rem 1.45rem;
-    font-weight: 800;
-    box-shadow: 0 12px 30px rgba(37, 99, 235, 0.32);
+.stTextArea textarea::placeholder, .stTextInput input::placeholder {
+    color: #94A3B8 !important;
 }
 
-.stButton > button:hover {
-    opacity: 0.95;
-    transform: translateY(-1px);
+.stButton > button, .stDownloadButton > button {
+    background: linear-gradient(90deg, #2563EB, #38BDF8) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 14px !important;
+    padding: 0.8rem 1.45rem !important;
+    font-weight: 800 !important;
+    box-shadow: 0 12px 30px rgba(37, 99, 235, 0.32) !important;
 }
 
 [data-testid="stMetric"] {
@@ -233,8 +248,6 @@ N8N_WEBHOOK_URL = st.secrets.get("N8N_WEBHOOK_URL", "").strip()
 # -----------------------------
 # LOGO + NAV
 # -----------------------------
-st.markdown('<div class="logo-nav">', unsafe_allow_html=True)
-
 nav_left, nav_right = st.columns([0.75, 0.25])
 
 with nav_left:
@@ -249,8 +262,6 @@ with nav_right:
         """,
         unsafe_allow_html=True
     )
-
-st.markdown('</div>', unsafe_allow_html=True)
 
 # -----------------------------
 # HERO
@@ -303,13 +314,13 @@ with st.expander("About Aligna", expanded=False):
 - Returns **PASS / FLAG / REVIEW** decisions
 - Provides explainable feedback and a human-readable HTML report
 
-**Who it’s for**
+**Who it’s for**  
 Marketing teams, social media managers, content creators, and brand managers.
 
-**Tech stack**
+**Tech stack**  
 Streamlit UI → n8n workflow → Ollama local LLM → HTML report
 
-**Built by**
+**Built by**  
 Vivek Nikam  
 Portfolio: https://vivek-nikam-portfolio.framer.website/
 """
@@ -320,53 +331,50 @@ st.divider()
 # -----------------------------
 # INPUTS
 # -----------------------------
-st.header("Evaluate Content")
-st.caption("Brand guideline upload is optional. The tool can still run using built-in brand voice examples.")
+with st.container(border=True):
+    st.header("Evaluate Content")
+    st.caption("Brand guideline upload is optional. The tool can still run using built-in brand voice examples.")
 
-st.markdown('<div class="input-shell">', unsafe_allow_html=True)
+    col1, col2 = st.columns(2)
 
-col1, col2 = st.columns(2)
+    with col1:
+        brand_pdf = st.file_uploader(
+            "Upload Brand Guidelines PDF — optional",
+            type=["pdf"],
+            help="Optional. Uploading guidelines can support richer future evaluation."
+        )
 
-with col1:
-    brand_pdf = st.file_uploader(
-        "Upload Brand Guidelines PDF — optional",
-        type=["pdf"],
-        help="Optional. Uploading guidelines can support richer future evaluation."
+    with col2:
+        copy_text = st.text_area(
+            "Copy to evaluate — optional for testing",
+            height=170,
+            placeholder="Example: Introducing our latest feature to help marketers move faster with confidence...",
+            help="Paste copy you want Aligna to evaluate."
+        )
+
+    email = st.text_input(
+        "Email — optional",
+        placeholder="name@example.com",
+        help="Optional. Used only if your workflow supports logging or email delivery."
     )
 
-with col2:
-    copy_text = st.text_area(
-        "Copy to evaluate — optional for testing",
-        height=170,
-        placeholder="Example: Introducing our latest feature to help marketers move faster with confidence...",
-        help="Paste copy you want Aligna to evaluate."
-    )
+    errors = []
 
-email = st.text_input(
-    "Email — optional",
-    placeholder="name@example.com",
-    help="Optional. Used only if your workflow supports logging or email delivery."
-)
+    if not N8N_WEBHOOK_URL:
+        errors.append(
+            "Missing N8N_WEBHOOK_URL. Add it in Streamlit Cloud → App → Settings → Secrets."
+        )
+    elif not N8N_WEBHOOK_URL.startswith("http"):
+        errors.append("N8N_WEBHOOK_URL must start with http:// or https://")
 
-errors = []
+    if email and ("@" not in email or "." not in email.split("@")[-1]):
+        errors.append("Email looks invalid. Enter a valid email or leave blank.")
 
-if not N8N_WEBHOOK_URL:
-    errors.append(
-        "Missing N8N_WEBHOOK_URL. Add it in Streamlit Cloud → App → Settings → Secrets."
-    )
-elif not N8N_WEBHOOK_URL.startswith("http"):
-    errors.append("N8N_WEBHOOK_URL must start with http:// or https://")
+    if errors:
+        for e in errors:
+            st.error(e)
 
-if email and ("@" not in email or "." not in email.split("@")[-1]):
-    errors.append("Email looks invalid. Enter a valid email or leave blank.")
-
-if errors:
-    for e in errors:
-        st.error(e)
-
-run = st.button("Run Evaluation", disabled=bool(errors))
-
-st.markdown('</div>', unsafe_allow_html=True)
+    run = st.button("Run Evaluation", disabled=bool(errors))
 
 st.divider()
 
@@ -471,7 +479,6 @@ if run:
     report_b64 = data.get("report_base64", "")
     html = decode_report(report_b64)
 
-    # Force embedded HTML report to match Aligna dark premium branding
     if html:
         aligna_report_css = """
 <style>
@@ -482,21 +489,19 @@ if run:
         padding: 24px !important;
     }
 
-    h1, h2, h3 {
-        color: #F8FAFC !important;
-        font-family: Inter, Arial, sans-serif !important;
-        letter-spacing: -0.02em !important;
+    body * {
+        color: #E5E7EB !important;
     }
 
-    p, span, div, li, strong {
-        color: #CBD5E1 !important;
+    h1, h2, h3 {
+        color: #F8FAFC !important;
+        letter-spacing: -0.02em !important;
     }
 
     table {
         width: 100% !important;
         border-collapse: collapse !important;
         background: #0F172A !important;
-        color: #E5E7EB !important;
         border-radius: 16px !important;
         overflow: hidden !important;
         border: 1px solid rgba(56, 189, 248, 0.25) !important;
@@ -522,19 +527,9 @@ if run:
         background: #111C33 !important;
     }
 
-    .pass, .PASS {
-        color: #A7F3D0 !important;
-        font-weight: 800 !important;
-    }
-
-    .flag, .FLAG {
-        color: #FCA5A5 !important;
-        font-weight: 800 !important;
-    }
-
-    .review, .REVIEW {
-        color: #FDE68A !important;
-        font-weight: 800 !important;
+    td:nth-child(2) {
+        color: #38BDF8 !important;
+        font-weight: 900 !important;
     }
 
     code, pre {
@@ -544,17 +539,20 @@ if run:
     }
 </style>
 """
-
         if "<head>" in html:
             html = html.replace("<head>", "<head>" + aligna_report_css)
         else:
             html = aligna_report_css + html
 
+        html = html.replace("PASS:", "<span style='color:#A7F3D0!important;font-weight:900;'>PASS:</span>")
+        html = html.replace("FLAG:", "<span style='color:#FCA5A5!important;font-weight:900;'>FLAG:</span>")
+        html = html.replace("REVIEW:", "<span style='color:#FDE68A!important;font-weight:900;'>REVIEW:</span>")
+
     st.markdown("### HTML Report Preview")
     st.caption("A branded report preview designed for brand managers and non-technical stakeholders.")
 
     if html:
-        st.components.v1.html(html, height=700, scrolling=True)
+        st.components.v1.html(html, height=720, scrolling=True)
         st.download_button(
             "Download HTML Report",
             data=html.encode("utf-8"),
