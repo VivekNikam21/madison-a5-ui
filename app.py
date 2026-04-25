@@ -744,12 +744,12 @@ if html:
     )
 else:
     st.warning("No report returned.")
-        st.download_button(
-            "Download Raw JSON",
-            data=resp.text.encode("utf-8"),
-            file_name="n8n_response.json",
-            mime="application/json",
-        )
+    st.download_button(
+        "Download Raw JSON",
+        data=resp.text.encode("utf-8"),
+        file_name="n8n_response.json",
+        mime="application/json",
+     )
 
 st.markdown("""
 <div class="footer">
