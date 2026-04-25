@@ -432,7 +432,7 @@ with st.container(border=True):
     with col2:
         copy_text = st.text_area(
             "Copy to evaluate — optional for testing",
-            height=150,
+            height=170,
             placeholder="Example: Introducing our latest feature to help marketers move faster with confidence...",
             help="Paste copy you want Aligna to evaluate."
         )
