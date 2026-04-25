@@ -467,7 +467,7 @@ if run:
 
     st.caption(f"Generated at: {data.get('generated_at', '—')}")
 
-       report_name = data.get("report_file_name", "aligna_brand_voice_report.html")
+    report_name = data.get("report_file_name", "aligna_brand_voice_report.html")
     report_b64 = data.get("report_base64", "")
     html = decode_report(report_b64)
 
