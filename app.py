@@ -176,29 +176,59 @@ hr {
 .stTextArea textarea {
     background: #0B1220 !important;
     color: #F8FAFC !important;
-    border: 1px solid rgba(56, 189, 248, 0.25) !important;
+    border: 1px solid rgba(56, 189, 248, 0.18) !important;
     border-radius: 12px !important;
 }
 
-/* remove ugly white glow */
+/* remove white border/glow */
 .stTextInput input:focus,
 .stTextArea textarea:focus {
-    border-color: #38BDF8 !important;
+    border: 1px solid rgba(56, 189, 248, 0.45) !important;
     box-shadow: none !important;
     outline: none !important;
 }
 
+/* readable placeholder text */
+.stTextInput input::placeholder,
+.stTextArea textarea::placeholder {
+    color: #94A3B8 !important;
+    opacity: 1 !important;
+}
+
 /* uploader */
+[data-testid="stFileUploader"] {
+    border: none !important;
+    padding: 0 !important;
+}
+
+/* uploader dropzone */
 [data-testid="stFileUploader"] section {
     background: #0B1220 !important;
     border: 1px dashed rgba(56, 189, 248, 0.35) !important;
     border-radius: 12px !important;
 }
 
-/* remove extra borders */
-[data-testid="stFileUploader"] {
-    border: none !important;
-    padding: 0 !important;
+/* upload button */
+[data-testid="stFileUploader"] button {
+    background: rgba(56, 189, 248, 0.10) !important;
+    color: #38BDF8 !important;
+    border: 1px solid rgba(56, 189, 248, 0.45) !important;
+    border-radius: 10px !important;
+    font-weight: 700 !important;
+}
+
+/* upload icon + upload text */
+[data-testid="stFileUploader"] button *,
+[data-testid="stFileUploader"] button svg {
+    color: #38BDF8 !important;
+    fill: #38BDF8 !important;
+    stroke: #38BDF8 !important;
+}
+
+/* uploader helper text */
+[data-testid="stFileUploader"] small,
+[data-testid="stFileUploader"] span {
+    color: #94A3B8 !important;
 }
 
 /* labels */
@@ -287,8 +317,6 @@ label {
         padding: 32px 24px;
     }
 }
-</style>
-""", unsafe_allow_html=True)
 
 # -----------------------------
 # CONFIG
@@ -403,7 +431,7 @@ with st.container(border=True):
     with col2:
         copy_text = st.text_area(
             "Copy to evaluate — optional for testing",
-            height=220,
+            height=150,
             placeholder="Example: Introducing our latest feature to help marketers move faster with confidence...",
             help="Paste copy you want Aligna to evaluate."
         )
