@@ -802,12 +802,21 @@ if run:
         </div>
         """
 
-        html = re.sub(
-            r"<div[^>]*>\s*<strong>\s*PASS\s*</strong>\s*Matches brand voice \(no rewrite needed\)\.\s*<br\s*/?>\s*<strong>\s*FLAG\s*</strong>\s*Does not match brand voice \(rewrite suggested\)\.\s*<br\s*/?>\s*<strong>\s*REVIEW\s*</strong>\s*Model output couldn’t be parsed; re-run recommended\.\s*</div>",
-            legend_html,
-            html,
+        legend_pattern = re.compile(
+            r"<div[^>]*>\s*"
+            r"(?:<strong[^>]*>)?\s*PASS\s*(?:</strong>)?\s*"
+            r"Matches brand voice \(no rewrite needed\)\.\s*<br\s*/?>\s*"
+            r"(?:<strong[^>]*>)?\s*FLAG\s*(?:</strong>)?\s*"
+            r"Does not match brand voice \(rewrite suggested\)\.\s*<br\s*/?>\s*"
+            r"(?:<strong[^>]*>)?\s*REVIEW\s*(?:</strong>)?\s*"
+            r"Model output couldn[’']t be parsed; re-run recommended\.\s*"
+            r"</div>",
             flags=re.IGNORECASE | re.DOTALL
         )
+
+        html = legend_pattern.sub(legend_html, html)
+        
+    
     st.markdown("### HTML Report Preview")
     st.caption("A branded report preview designed for brand managers and non-technical stakeholders.")
 
