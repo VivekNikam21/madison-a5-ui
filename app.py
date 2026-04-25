@@ -794,7 +794,20 @@ if run:
             )
 
         html = re.sub(r"\b(PASS|FLAG|REVIEW):\s*(\d+)", style_report_badge, html)
+        legend_html = """
+        <div style="background:#0F172A!important;border:1px solid rgba(56,189,248,0.25)!important;border-radius:14px!important;padding:14px 16px!important;margin:18px 0!important;">
+            <div style="color:#E5E7EB!important;"><strong style="color:#A7F3D0!important;">PASS</strong>&nbsp;&nbsp; Matches brand voice (no rewrite needed).</div>
+            <div style="color:#E5E7EB!important;"><strong style="color:#FCA5A5!important;">FLAG</strong>&nbsp;&nbsp; Does not match brand voice (rewrite suggested).</div>
+            <div style="color:#E5E7EB!important;"><strong style="color:#FDE68A!important;">REVIEW</strong>&nbsp;&nbsp; Model output couldn’t be parsed; re-run recommended.</div>
+        </div>
+        """
 
+        html = re.sub(
+            r"<div[^>]*>\s*<strong>\s*PASS\s*</strong>\s*Matches brand voice \(no rewrite needed\)\.\s*<br\s*/?>\s*<strong>\s*FLAG\s*</strong>\s*Does not match brand voice \(rewrite suggested\)\.\s*<br\s*/?>\s*<strong>\s*REVIEW\s*</strong>\s*Model output couldn’t be parsed; re-run recommended\.\s*</div>",
+            legend_html,
+            html,
+            flags=re.IGNORECASE | re.DOTALL
+        )
     st.markdown("### HTML Report Preview")
     st.caption("A branded report preview designed for brand managers and non-technical stakeholders.")
 
