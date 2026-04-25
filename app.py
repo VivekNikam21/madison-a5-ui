@@ -18,11 +18,14 @@ st.markdown("""
 :root {
     --midnight: #020617;
     --navy: #0F172A;
+    --panel: #111827;
+    --panel-soft: rgba(15, 23, 42, 0.82);
     --blue: #2563EB;
     --cyan: #38BDF8;
     --slate: #94A3B8;
     --text: #F8FAFC;
     --muted: #CBD5E1;
+    --border: rgba(56, 189, 248, 0.22);
 }
 
 html, body, [class*="css"] {
@@ -31,173 +34,200 @@ html, body, [class*="css"] {
 
 .stApp {
     background:
-        radial-gradient(circle at top left, rgba(37, 99, 235, 0.18), transparent 32%),
-        radial-gradient(circle at top right, rgba(56, 189, 248, 0.12), transparent 30%),
-        linear-gradient(180deg, #020617 0%, #0F172A 100%);
+        radial-gradient(circle at 10% 0%, rgba(37, 99, 235, 0.22), transparent 32%),
+        radial-gradient(circle at 90% 8%, rgba(56, 189, 248, 0.13), transparent 30%),
+        linear-gradient(180deg, var(--midnight) 0%, var(--navy) 100%);
     color: var(--text);
 }
 
 .block-container {
-    padding-top: 1.4rem;
-    max-width: 1180px;
+    width: min(94vw, 1480px) !important;
+    max-width: 1480px !important;
+    padding: 1.25rem 2rem 3rem !important;
 }
 
 [data-testid="stHeader"] {
-    background: rgba(2, 6, 23, 0);
+    background: transparent;
 }
 
 h1, h2, h3 {
     font-family: 'Sora', sans-serif;
-    color: var(--text);
+    color: var(--text) !important;
     letter-spacing: -0.035em;
 }
 
 h1 {
-    font-size: 3.35rem !important;
-    line-height: 1.05 !important;
-    margin-bottom: 1rem !important;
+    font-size: clamp(2.7rem, 4.2vw, 4.7rem) !important;
+    line-height: 1.02 !important;
+    max-width: 1080px;
+    margin-bottom: 1.2rem !important;
 }
 
 h2 {
-    font-size: 1.9rem !important;
+    font-size: 2rem !important;
 }
 
 p, label, span, div {
     color: var(--muted);
 }
 
+hr {
+    margin: 2.35rem 0 !important;
+    border-color: rgba(148, 163, 184, 0.14) !important;
+}
+
 .nav-pill {
     padding: 9px 16px;
     border-radius: 999px;
-    background: rgba(15, 23, 42, 0.72);
-    border: 1px solid rgba(56, 189, 248, 0.28);
-    color: #38BDF8;
+    background: rgba(15, 23, 42, 0.76);
+    border: 1px solid rgba(56, 189, 248, 0.32);
+    color: var(--cyan) !important;
     font-weight: 800;
     font-size: 0.84rem;
 }
 
 .hero {
-    padding: 48px;
-    border-radius: 30px;
+    width: 100%;
+    padding: clamp(38px, 5vw, 72px);
+    border-radius: 32px;
     background:
-        linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(2, 6, 23, 0.97)),
-        radial-gradient(circle at 82% 18%, rgba(56, 189, 248, 0.20), transparent 34%);
-    border: 1px solid rgba(56, 189, 248, 0.24);
-    box-shadow: 0 26px 80px rgba(0,0,0,0.38);
-    margin-bottom: 2rem;
+        radial-gradient(circle at 86% 16%, rgba(56, 189, 248, 0.18), transparent 34%),
+        linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(2, 6, 23, 0.98));
+    border: 1px solid var(--border);
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.38);
+    margin: 1rem 0 1.35rem;
 }
 
 .hero-kicker {
-    color: #38BDF8;
-    font-size: 0.84rem;
+    color: var(--cyan);
+    font-size: 0.82rem;
     font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.16em;
     margin-bottom: 1rem;
 }
 
 .hero-copy {
-    font-size: 1.12rem;
-    line-height: 1.75;
-    color: #CBD5E1;
-    max-width: 770px;
+    font-size: clamp(1rem, 1.15vw, 1.18rem);
+    line-height: 1.65;
+    color: var(--muted);
+    max-width: 1180px;
+    margin: 0;
 }
 
 .step-card {
-    background: rgba(15, 23, 42, 0.82);
-    border: 1px solid rgba(56, 189, 248, 0.17);
+    height: 100%;
+    background: var(--panel-soft);
+    border: 1px solid rgba(56, 189, 248, 0.18);
     border-radius: 22px;
-    padding: 22px;
-    min-height: 145px;
-    box-shadow: 0 14px 34px rgba(0,0,0,0.18);
+    padding: 24px;
+    min-height: 165px;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.20);
+}
+
+.step-card h3 {
+    margin-top: 0.25rem;
+    margin-bottom: 0.65rem;
+}
+
+.step-card p {
+    margin: 0;
+    line-height: 1.55;
 }
 
 .step-number {
     width: 32px;
     height: 32px;
     border-radius: 999px;
-    background: rgba(37, 99, 235, 0.28);
-    color: #38BDF8;
+    background: rgba(37, 99, 235, 0.30);
+    color: var(--cyan) !important;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 800;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
 }
 
-/* Fix Streamlit expander */
 [data-testid="stExpander"] {
-    background: rgba(15, 23, 42, 0.78) !important;
-    border: 1px solid rgba(56, 189, 248, 0.18) !important;
-    border-radius: 18px !important;
+    background: rgba(15, 23, 42, 0.80) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 20px !important;
     overflow: hidden !important;
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.18) !important;
 }
 
-[data-testid="stExpander"] details {
-    background: rgba(15, 23, 42, 0.78) !important;
-}
-
-[data-testid="stExpander"] summary {
-    background: rgba(15, 23, 42, 0.94) !important;
-    color: #F8FAFC !important;
-}
-
+[data-testid="stExpander"] summary,
 [data-testid="stExpander"] summary * {
-    color: #F8FAFC !important;
+    background: rgba(15, 23, 42, 0.94) !important;
+    color: var(--text) !important;
 }
 
-/* Bordered Streamlit container used for Evaluate Content */
 [data-testid="stVerticalBlockBorderWrapper"] {
-    background: rgba(15, 23, 42, 0.78) !important;
-    border: 1px solid rgba(56, 189, 248, 0.22) !important;
+    background: rgba(15, 23, 42, 0.82) !important;
+    border: 1px solid var(--border) !important;
     border-radius: 26px !important;
-    box-shadow: 0 18px 42px rgba(0,0,0,0.20) !important;
-    padding: 10px !important;
+    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.22) !important;
+    padding: 14px !important;
 }
 
-/* Inputs */
+/* File uploader */
 [data-testid="stFileUploader"] {
-    background: rgba(2, 6, 23, 0.50);
-    border: 1px solid rgba(56, 189, 248, 0.22);
+    background: rgba(2, 6, 23, 0.58);
+    border: 1px solid var(--border);
     border-radius: 16px;
     padding: 14px;
 }
 
 [data-testid="stFileUploader"] section {
-    background: rgba(15, 23, 42, 0.86) !important;
-    border: 1px dashed rgba(56, 189, 248, 0.35) !important;
+    background: rgba(15, 23, 42, 0.94) !important;
+    border: 1px dashed rgba(56, 189, 248, 0.45) !important;
     border-radius: 14px !important;
 }
 
 [data-testid="stFileUploader"] button {
-    background: rgba(37, 99, 235, 0.22) !important;
+    background: rgba(37, 99, 235, 0.28) !important;
     color: #E0F2FE !important;
-    border: 1px solid rgba(56, 189, 248, 0.45) !important;
+    border: 1px solid rgba(56, 189, 248, 0.50) !important;
     border-radius: 12px !important;
 }
 
-textarea, input {
+/* Inputs */
+.stTextArea textarea,
+.stTextInput input {
+    background: #0B1220 !important;
+    color: var(--text) !important;
+    border: 1px solid rgba(56, 189, 248, 0.36) !important;
     border-radius: 14px !important;
-    border: 1px solid rgba(56, 189, 248, 0.28) !important;
+    box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.06) !important;
 }
 
-.stTextArea textarea, .stTextInput input {
-    background-color: rgba(15, 23, 42, 0.92) !important;
-    color: #F8FAFC !important;
+.stTextArea textarea:focus,
+.stTextInput input:focus {
+    border-color: var(--cyan) !important;
+    box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.22) !important;
 }
 
-.stTextArea textarea::placeholder, .stTextInput input::placeholder {
+.stTextArea textarea::placeholder,
+.stTextInput input::placeholder {
     color: #94A3B8 !important;
+    opacity: 0.95 !important;
 }
 
-.stButton > button, .stDownloadButton > button {
-    background: linear-gradient(90deg, #2563EB, #38BDF8) !important;
+.stButton > button,
+.stDownloadButton > button {
+    background: linear-gradient(90deg, var(--blue), var(--cyan)) !important;
     color: white !important;
-    border: none !important;
+    border: 0 !important;
     border-radius: 14px !important;
-    padding: 0.8rem 1.45rem !important;
+    padding: 0.85rem 1.5rem !important;
     font-weight: 800 !important;
-    box-shadow: 0 12px 30px rgba(37, 99, 235, 0.32) !important;
+    box-shadow: 0 14px 34px rgba(37, 99, 235, 0.34) !important;
+}
+
+.stButton > button:hover,
+.stDownloadButton > button:hover {
+    filter: brightness(1.08);
+    transform: translateY(-1px);
 }
 
 [data-testid="stMetric"] {
@@ -208,34 +238,51 @@ textarea, input {
 }
 
 .decision-card {
-    padding: 19px 21px;
-    border-radius: 18px;
+    padding: 22px 24px;
+    border-radius: 20px;
     font-weight: 800;
     border: 1px solid rgba(148, 163, 184, 0.18);
-    box-shadow: 0 12px 28px rgba(0,0,0,0.16);
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.18);
+}
+
+.decision-card span {
+    color: var(--text) !important;
+    font-weight: 700;
 }
 
 .pass-card {
-    background: rgba(16, 185, 129, 0.13);
-    color: #A7F3D0;
+    background: rgba(16, 185, 129, 0.14);
+    color: #A7F3D0 !important;
 }
 
 .flag-card {
-    background: rgba(245, 158, 11, 0.14);
-    color: #FDE68A;
+    background: rgba(245, 158, 11, 0.15);
+    color: #FDE68A !important;
 }
 
 .review-card {
-    background: rgba(56, 189, 248, 0.13);
-    color: #BAE6FD;
+    background: rgba(56, 189, 248, 0.14);
+    color: #BAE6FD !important;
 }
 
 .footer {
     margin-top: 3rem;
     padding-top: 1.5rem;
     border-top: 1px solid rgba(148, 163, 184, 0.16);
-    color: #94A3B8;
+    color: var(--slate);
     font-size: 0.9rem;
+}
+
+@media (max-width: 900px) {
+    .block-container {
+        width: 94vw !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+
+    .hero {
+        padding: 32px 24px;
+    }
 }
 </style>
 """, unsafe_allow_html=True)
@@ -270,10 +317,7 @@ st.markdown("""
 <div class="hero">
     <div class="hero-kicker">AI-powered brand voice evaluation</div>
     <h1>Turn brand voice review into a clear decision.</h1>
-    <p class="hero-copy">
-        Aligna evaluates copy against a learned brand voice and returns structured
-        PASS, FLAG, or REVIEW outcomes with explanations your team can act on before anything goes live.
-    </p>
+    <p class="hero-copy">Aligna evaluates copy against a learned brand voice and returns structured PASS, FLAG, or REVIEW outcomes with explanations your team can act on before anything goes live.</p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -309,13 +353,16 @@ with step3:
 with st.expander("About Aligna", expanded=False):
     st.markdown(
         """
-**What it does**
-- Evaluates content against a learned brand voice
-- Returns **PASS / FLAG / REVIEW** decisions
-- Provides explainable feedback and a human-readable HTML report
+**What it does**  
+Aligna evaluates content against a learned brand voice and turns subjective review into clear decisions.
+
+**Decision system**
+- **PASS** = content aligns with the brand voice
+- **FLAG** = content conflicts with the brand voice or needs rewriting
+- **REVIEW** = human judgment is needed before action
 
 **Who it’s for**  
-Marketing teams, social media managers, content creators, and brand managers.
+Marketing teams, social media managers, content creators, product marketers, and brand managers.
 
 **Tech stack**  
 Streamlit UI → n8n workflow → Ollama local LLM → HTML report
@@ -333,7 +380,7 @@ st.divider()
 # -----------------------------
 with st.container(border=True):
     st.header("Evaluate Content")
-    st.caption("Brand guideline upload is optional. The tool can still run using built-in brand voice examples.")
+    st.caption("Upload is optional. Aligna can still run using built-in brand voice examples when no brand guideline PDF is added.")
 
     col1, col2 = st.columns(2)
 
@@ -386,13 +433,22 @@ st.header("Decision System")
 d1, d2, d3 = st.columns(3)
 
 with d1:
-    st.markdown('<div class="decision-card pass-card">PASS<br><span>On-brand and ready to use</span></div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="decision-card pass-card">PASS<br><span>On-brand and ready to use</span></div>',
+        unsafe_allow_html=True
+    )
 
 with d2:
-    st.markdown('<div class="decision-card flag-card">FLAG<br><span>Off-brand or rewrite suggested</span></div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="decision-card flag-card">FLAG<br><span>Off-brand or rewrite suggested</span></div>',
+        unsafe_allow_html=True
+    )
 
 with d3:
-    st.markdown('<div class="decision-card review-card">REVIEW<br><span>Needs human judgment</span></div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="decision-card review-card">REVIEW<br><span>Needs human judgment</span></div>',
+        unsafe_allow_html=True
+    )
 
 
 def decode_report(report_b64: str) -> str:
