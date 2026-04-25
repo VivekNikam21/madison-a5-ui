@@ -317,7 +317,8 @@ label {
         padding: 32px 24px;
     }
 }
-
+</style>
+""", unsafe_allow_html=True)
 # -----------------------------
 # CONFIG
 # -----------------------------
