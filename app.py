@@ -261,9 +261,27 @@ label {
     font-weight: 600 !important;
 }
 
-.stButton {
-    margin-top: 0.15rem !important;
+/* tooltip/help icons — slate gray question mark, no filled circle */
+[data-testid="stTooltipIcon"] {
+    color: #94A3B8 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
 }
+
+[data-testid="stTooltipIcon"] svg,
+[data-testid="stTooltipIcon"] svg *,
+[data-testid="stTooltipIcon"] path {
+    color: #94A3B8 !important;
+    fill: none !important;
+    stroke: #94A3B8 !important;
+}
+
+/* lower Run Evaluation button */
+.stButton {
+    margin-top: 1.25rem !important;
+}
+
 
 .stButton > button,
 .stDownloadButton > button {
