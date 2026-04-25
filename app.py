@@ -504,7 +504,7 @@ with st.container(border=True):
     with col2:
         copy_text = st.text_area(
             "Copy to evaluate — optional for testing",
-            height=180,
+            height=182,
             placeholder="Example: Introducing our latest feature to help marketers move faster with confidence...",
             help="Paste copy you want Aligna to evaluate."
         )
@@ -692,6 +692,44 @@ if run:
         font-weight: 900 !important;
     }
 
+    /* Report badge readability */
+.badge,
+span[class*="pass"],
+span[class*="flag"],
+span[class*="review"] {
+    color: #020617 !important;
+    font-weight: 900 !important;
+}
+
+/* Report explanation block readability */
+.report-legend,
+.legend,
+.summary-box,
+.info-box,
+div:has(> span) {
+    background: #0F172A !important;
+    color: #E2E8F0 !important;
+    border: 1px solid rgba(56, 189, 248, 0.22) !important;
+    border-radius: 14px !important;
+}
+
+/* Make text inside explanation blocks readable */
+.report-legend *,
+.legend *,
+.summary-box *,
+.info-box * {
+    color: #E2E8F0 !important;
+}
+
+/* Keep labels visually distinct */
+.report-legend strong,
+.legend strong,
+.summary-box strong,
+.info-box strong {
+    color: #F8FAFC !important;
+    font-weight: 900 !important;
+}
+
     code, pre {
         background: #020617 !important;
         color: #38BDF8 !important;
@@ -707,6 +745,10 @@ if run:
         html = html.replace("PASS:", "<span style='color:#A7F3D0!important;font-weight:900;'>PASS:</span>")
         html = html.replace("FLAG:", "<span style='color:#FCA5A5!important;font-weight:900;'>FLAG:</span>")
         html = html.replace("REVIEW:", "<span style='color:#FDE68A!important;font-weight:900;'>REVIEW:</span>")
+        html = html.replace("background:#fff", "background:#0F172A")
+        html = html.replace("background: #fff", "background:#0F172A")
+        html = html.replace("color:#111", "color:#E2E8F0")
+        html = html.replace("color: #111", "color:#E2E8F0")
 
     st.markdown("### HTML Report Preview")
     st.caption("A branded report preview designed for brand managers and non-technical stakeholders.")
