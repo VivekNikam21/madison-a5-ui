@@ -711,6 +711,38 @@ if run:
         margin-right: 10px !important;
         color: inherit !important;
     }
+
+    /* Keep report badges readable */
+    .report-badge,
+    .report-badge * {
+        color: inherit !important;
+    }
+
+    /* Fix white PASS/FLAG/REVIEW explanation box */
+    div[style*="background:#fff"],
+    div[style*="background: #fff"],
+    div[style*="background:white"],
+    div[style*="background: white"],
+    div[style*="background-color:#fff"],
+    div[style*="background-color: #fff"],
+    div[style*="background-color:white"],
+    div[style*="background-color: white"] {
+        background: #0F172A !important;
+        color: #E5E7EB !important;
+        border: 1px solid rgba(56, 189, 248, 0.25) !important;
+    }
+
+    div[style*="background:#fff"] *,
+    div[style*="background: #fff"] *,
+    div[style*="background:white"] *,
+    div[style*="background: white"] *,
+    div[style*="background-color:#fff"] *,
+    div[style*="background-color: #fff"] *,
+    div[style*="background-color:white"] *,
+    div[style*="background-color: white"] * {
+        color: #E5E7EB !important;
+    }
+    
 </style>
 """
 
@@ -718,6 +750,10 @@ if run:
         html = html.replace("background: #fff", "background:#0F172A")
         html = html.replace("background:white", "background:#0F172A")
         html = html.replace("background: white", "background:#0F172A")
+        html = html.replace("background-color:#fff", "background-color:#0F172A")
+        html = html.replace("background-color: #fff", "background-color:#0F172A")
+        html = html.replace("background-color:white", "background-color:#0F172A")
+        html = html.replace("background-color: white", "background-color:#0F172A")
         html = html.replace("color:#111", "color:#E5E7EB")
         html = html.replace("color: #111", "color:#E5E7EB")
         html = html.replace("color:black", "color:#E5E7EB")
@@ -733,9 +769,9 @@ if run:
             count = match.group(2)
 
             styles = {
-                "PASS": "background:#D1FAE5;color:#065F46;",
-                "FLAG": "background:#FEE2E2;color:#991B1B;",
-                "REVIEW": "background:#FEF3C7;color:#92400E;",
+                "PASS": "background:#D1FAE5!important;color:#065F46!important;",
+                "FLAG": "background:#FEE2E2!important;color:#991B1B!important;",
+                "REVIEW": "background:#FEF3C7!important;color:#92400E!important;",
             }
 
             return (
