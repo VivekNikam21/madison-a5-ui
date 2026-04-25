@@ -172,23 +172,40 @@ hr {
 
 /* CLEAN INPUT STYLING */
 
-.stTextInput input,
-.stTextArea textarea {
+/* Streamlit/BaseWeb input wrappers */
+div[data-baseweb="input"],
+div[data-baseweb="textarea"] {
     background: #0B1220 !important;
-    color: #F8FAFC !important;
     border: 1px solid rgba(56, 189, 248, 0.18) !important;
     border-radius: 12px !important;
+    box-shadow: none !important;
 }
 
-/* remove white border/glow */
-.stTextInput input:focus,
-.stTextArea textarea:focus {
-    border: 1px solid rgba(56, 189, 248, 0.45) !important;
+div[data-baseweb="input"]:focus-within,
+div[data-baseweb="textarea"]:focus-within {
+    border: 1px solid rgba(56, 189, 248, 0.35) !important;
     box-shadow: none !important;
     outline: none !important;
 }
 
-/* readable placeholder text */
+/* Actual input fields */
+.stTextInput input,
+.stTextArea textarea {
+    background: #0B1220 !important;
+    color: #F8FAFC !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    border-radius: 12px !important;
+}
+
+.stTextInput input:focus,
+.stTextArea textarea:focus {
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
 .stTextInput input::placeholder,
 .stTextArea textarea::placeholder {
     color: #94A3B8 !important;
@@ -201,7 +218,6 @@ hr {
     padding: 0 !important;
 }
 
-/* uploader dropzone */
 [data-testid="stFileUploader"] section {
     background: #0B1220 !important;
     border: 1px dashed rgba(56, 189, 248, 0.35) !important;
@@ -217,12 +233,20 @@ hr {
     font-weight: 700 !important;
 }
 
-/* upload icon + upload text */
 [data-testid="stFileUploader"] button *,
 [data-testid="stFileUploader"] button svg {
     color: #38BDF8 !important;
     fill: #38BDF8 !important;
     stroke: #38BDF8 !important;
+}
+
+/* tooltip/help icons — keep muted, not cyan */
+[data-testid="stTooltipIcon"],
+[data-testid="stTooltipIcon"] *,
+[data-testid="stTooltipIcon"] svg {
+    color: #475569 !important;
+    fill: #475569 !important;
+    stroke: #475569 !important;
 }
 
 /* uploader helper text */
@@ -317,6 +341,7 @@ label {
         padding: 32px 24px;
     }
 }
+
 </style>
 """, unsafe_allow_html=True)
 # -----------------------------
