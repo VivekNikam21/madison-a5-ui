@@ -467,53 +467,94 @@ if run:
 
     st.caption(f"Generated at: {data.get('generated_at', '—')}")
 
-    report_name = data.get("report_file_name", "aligna_brand_voice_report.html")
+       report_name = data.get("report_file_name", "aligna_brand_voice_report.html")
     report_b64 = data.get("report_base64", "")
     html = decode_report(report_b64)
-        # Force the embedded HTML report to use a readable light theme
-if html:
-    html = html.replace(
-        "<head>",
-        """
-<head>
+
+    # Force embedded HTML report to match Aligna dark premium branding
+    if html:
+        aligna_report_css = """
 <style>
     html, body {
-        background: #F8FAFC !important;
-        color: #020617 !important;
+        background: #020617 !important;
+        color: #E5E7EB !important;
         font-family: Inter, Arial, sans-serif !important;
+        padding: 24px !important;
+    }
+
+    h1, h2, h3 {
+        color: #F8FAFC !important;
+        font-family: Inter, Arial, sans-serif !important;
+        letter-spacing: -0.02em !important;
+    }
+
+    p, span, div, li, strong {
+        color: #CBD5E1 !important;
     }
 
     table {
-        background: #FFFFFF !important;
-        color: #020617 !important;
-        border-collapse: collapse !important;
         width: 100% !important;
+        border-collapse: collapse !important;
+        background: #0F172A !important;
+        color: #E5E7EB !important;
+        border-radius: 16px !important;
+        overflow: hidden !important;
+        border: 1px solid rgba(56, 189, 248, 0.25) !important;
     }
 
     th {
-        background: #E2E8F0 !important;
-        color: #020617 !important;
-        font-weight: 700 !important;
+        background: #1E293B !important;
+        color: #F8FAFC !important;
+        font-weight: 800 !important;
+        padding: 14px !important;
+        border: 1px solid rgba(148, 163, 184, 0.25) !important;
     }
 
     td {
-        background: #FFFFFF !important;
-        color: #020617 !important;
-        border: 1px solid #CBD5E1 !important;
+        background: #0F172A !important;
+        color: #E5E7EB !important;
+        padding: 14px !important;
+        border: 1px solid rgba(148, 163, 184, 0.22) !important;
+        vertical-align: top !important;
     }
 
-    tr, p, span, div, li {
-        color: #020617 !important;
+    tr:nth-child(even) td {
+        background: #111C33 !important;
+    }
+
+    .pass, .PASS {
+        color: #A7F3D0 !important;
+        font-weight: 800 !important;
+    }
+
+    .flag, .FLAG {
+        color: #FCA5A5 !important;
+        font-weight: 800 !important;
+    }
+
+    .review, .REVIEW {
+        color: #FDE68A !important;
+        font-weight: 800 !important;
+    }
+
+    code, pre {
+        background: #020617 !important;
+        color: #38BDF8 !important;
+        border-radius: 10px !important;
     }
 </style>
 """
-    )
+
+        if "<head>" in html:
+            html = html.replace("<head>", "<head>" + aligna_report_css)
+        else:
+            html = aligna_report_css + html
 
     st.markdown("### HTML Report Preview")
-    st.caption("A shareable report designed for brand managers and non-technical stakeholders.")
+    st.caption("A branded report preview designed for brand managers and non-technical stakeholders.")
 
     if html:
-        st.components.v1.html(html, height=650, scrolling=True)
+        st.components.v1.html(html, height=700, scrolling=True)
         st.download_button(
             "Download HTML Report",
             data=html.encode("utf-8"),
