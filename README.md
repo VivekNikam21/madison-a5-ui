@@ -1,4 +1,4 @@
-# Madison Brand Voice Checker (A5)
+# Madison Brand Voice Checker
 
 Public Streamlit UI deployed on Streamlit Cloud.
 It calls an existing Assignment 4 n8n workflow via a production webhook (exposed via a secure tunnel).
@@ -7,4 +7,4 @@ It calls an existing Assignment 4 n8n workflow via a production webhook (exposed
 Streamlit (UI) → n8n (workflow orchestration) → Ollama (local LLM) → HTML report
 
 ## Notes
-The A4 workflow logic is unchanged. Streamlit is only a user interface layer.
+The workflow logic is unchanged. Streamlit is only a user interface layer.
